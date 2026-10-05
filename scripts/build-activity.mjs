@@ -98,7 +98,7 @@ for (const p of cfg.projects) {
     alias: p.alias, category: p.category, summary: p.summary, tags: p.tags || [],
     org: p.org || null, visibility: isPrivate ? "private" : "public",
     url: !isPrivate && hit.length === 1 ? hit[0].url : null,
-    caseId: p.caseId || null, weekly, lastActive: last ? weekStart(last) : null
+    caseId: p.caseId || null, badge: p.badge || null, weekly, lastActive: last ? weekStart(last) : null
   });
 }
 

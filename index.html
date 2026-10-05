@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diego Hernández · Fullstack AI Engineer</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -24,6 +26,19 @@
   @keyframes dh-pulse { 0% { box-shadow: 0 0 0 0 rgba(59,130,246,0.6) } 100% { box-shadow: 0 0 0 10px rgba(59,130,246,0) } }
   @keyframes dh-mq { from { transform: translateX(0) } to { transform: translateX(-50%) } }
   @keyframes dh-mq-r { from { transform: translateX(-50%) } to { transform: translateX(0) } }
+  .dh-tabs { scrollbar-width: none; }
+  @media (min-width: 761px) { .dh-tabs { flex-wrap: wrap; border-radius: 22px !important; } }
+  @media (max-width: 760px) { .dh-tabs { -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); } }
+  .dh-tabs::-webkit-scrollbar { display: none; }
+  @media (min-width: 761px) { .dh-mmenu { display: none !important; } }
+  @media (max-width: 760px) {
+    .dh-links { display: none !important; }
+    .dh-burger { display: flex !important; }
+    .dh-story { display: flex !important; flex-direction: column; gap: 0 !important; }
+    .dh-story-vis { order: -1; position: sticky; top: 76px; z-index: 2; padding-bottom: 12px; background: #050607; box-shadow: 0 -90px 0 #050607; }
+    .dh-story-vis > div { position: relative !important; top: 0 !important; height: 40vh !important; min-height: 240px; }
+    .dh-step { min-height: 55vh !important; }
+  }
   @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 </style>
 </helmet>
@@ -47,14 +62,29 @@
       <a href="#top" style="display:flex;align-items:center;gap:10px;color:#F2F4F7;font-weight:600;letter-spacing:-0.02em;font-size:15px;white-space:nowrap">
         <span style="width:8px;height:8px;border-radius:50%;background:#3B82F6;animation:dh-pulse 2s ease-out infinite"></span>{{ name }}
       </a>
-      <div style="display:flex;flex-wrap:wrap;gap:2px;font-size:14px">
+      <div class="dh-links" style="display:flex;flex-wrap:wrap;gap:2px;font-size:14px">
         <a href="#solve" style="color:#98A0AB;padding:8px 12px;border-radius:999px;transition:color .2s,background .2s" style-hover="color:#F2F4F7;background:rgba(255,255,255,0.06)">Solve</a>
         <a href="#work" style="color:#98A0AB;padding:8px 12px;border-radius:999px;transition:color .2s,background .2s" style-hover="color:#F2F4F7;background:rgba(255,255,255,0.06)">Work</a>
         <a href="#experience" style="color:#98A0AB;padding:8px 12px;border-radius:999px;transition:color .2s,background .2s" style-hover="color:#F2F4F7;background:rgba(255,255,255,0.06)">Experience</a>
         <a href="#writing" style="color:#98A0AB;padding:8px 12px;border-radius:999px;transition:color .2s,background .2s" style-hover="color:#F2F4F7;background:rgba(255,255,255,0.06)">Writing</a>
       </div>
-      <a href="#contact" style="padding:9px 16px;border-radius:999px;background:#3B82F6;color:#050607;font-size:14px;font-weight:500;white-space:nowrap" style-hover="background:#93BBFC;color:#050607">Get in touch</a>
+      <div style="display:flex;align-items:center;gap:6px">
+        <a href="#contact" style="padding:9px 16px;border-radius:999px;background:#3B82F6;color:#050607;font-size:14px;font-weight:500;white-space:nowrap" style-hover="background:#93BBFC;color:#050607">Get in touch</a>
+        <button class="dh-burger" onClick="{{ toggleMenu }}" aria-label="Menu" aria-expanded="{{ menuOpen }}" style="display:none;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);background:transparent;cursor:pointer;padding:0">
+          <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4.5h12M2 8h12M2 11.5h12" stroke="#F2F4F7" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg></sc-if>
+          <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="#F2F4F7" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg></sc-if>
+        </button>
+      </div>
     </nav>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div class="dh-mmenu" style="max-width:1240px;margin:8px auto 0;display:flex;flex-direction:column;padding:8px;border-radius:22px;background:rgba(10,12,15,0.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.08);pointer-events:auto">
+        <a href="#solve" onClick="{{ closeMenu }}" style="color:#D5DAE1;padding:14px 16px;border-radius:14px;font-size:16px">Solve</a>
+        <a href="#work" onClick="{{ closeMenu }}" style="color:#D5DAE1;padding:14px 16px;border-radius:14px;font-size:16px">Work</a>
+        <a href="#cases" onClick="{{ closeMenu }}" style="color:#D5DAE1;padding:14px 16px;border-radius:14px;font-size:16px">How it works</a>
+        <a href="#experience" onClick="{{ closeMenu }}" style="color:#D5DAE1;padding:14px 16px;border-radius:14px;font-size:16px">Experience</a>
+        <a href="#writing" onClick="{{ closeMenu }}" style="color:#D5DAE1;padding:14px 16px;border-radius:14px;font-size:16px">Writing</a>
+      </div>
+    </sc-if>
   </div>
 
   <section id="top" data-screen-label="Hero" style="position:relative;padding-top:clamp(120px,18vh,180px)">
@@ -284,14 +314,16 @@
                 <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#C9CED6;border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:6px 11px">{{ t }}</span>
               </sc-for>
             </div>
-            <div style="display:flex;flex-direction:column;gap:8px;margin-top:auto">
-              <div style="display:flex;align-items:flex-end;gap:3px;height:36px">
-                <sc-for list="{{ p.bars }}" as="b" hint-placeholder-count="12">
-                  <span style="flex:1;border-radius:2px;background:#3B82F6;height:{{ b.h }};opacity:{{ b.op }}"></span>
-                </sc-for>
+            <sc-if value="{{ p.hasBars }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:8px;margin-top:auto">
+                <div style="display:flex;align-items:flex-end;gap:3px;height:36px">
+                  <sc-for list="{{ p.bars }}" as="b" hint-placeholder-count="12">
+                    <span style="flex:1;border-radius:2px;background:#3B82F6;height:{{ b.h }};opacity:{{ b.op }}"></span>
+                  </sc-for>
+                </div>
+                <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;color:#5A626E">Commits per week, last 12 weeks</span>
               </div>
-              <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;color:#5A626E">Commits per week, last 12 weeks</span>
-            </div>
+            </sc-if>
             <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06)">
               <sc-if value="{{ p.isPrivate }}" hint-placeholder-val="{{ true }}">
                 <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#98A0AB"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex:none"><rect x="2" y="5" width="8" height="6" rx="1.5" fill="none" stroke="#98A0AB" stroke-width="1.2"></rect><path d="M4 5V3.6a2 2 0 0 1 4 0V5" fill="none" stroke="#98A0AB" stroke-width="1.2"></path></svg>{{ p.owner }}</span>
@@ -316,17 +348,17 @@
   <section id="cases" data-screen-label="Case studies" style="max-width:1320px;margin:0 auto;padding-left:clamp(20px,5vw,64px);padding-right:clamp(20px,5vw,64px);padding-top:clamp(88px,14vh,160px);padding-bottom:0;scroll-margin-top:60px">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:clamp(32px,5vh,48px)">
       <h2 style="font-size:clamp(34px,4.8vw,66px);line-height:1;letter-spacing:-0.045em;font-weight:600;margin:0;max-width:20ch;text-wrap:balance;color:#F2F4F7">How it works</h2>
-      <div style="display:flex;flex-wrap:wrap;gap:4px;padding:4px;border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:#0A0C0F">
-        <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="3">
-          <button onClick="{{ tb.on }}" style="font-family:'Geist',sans-serif;font-size:14px;padding:9px 16px;border-radius:999px;border:0;cursor:pointer;background:{{ tb.bg }};color:{{ tb.tone }};transition:background .2s,color .2s">{{ tb.label }}</button>
-        </sc-for>
-      </div>
+    </div>
+    <div class="dh-tabs" style="display:flex;gap:4px;padding:4px;margin:0 0 clamp(24px,4vh,40px);border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:#0A0C0F;overflow-x:auto;max-width:100%;width:fit-content">
+      <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="6">
+        <button onClick="{{ tb.on }}" style="flex:none;white-space:nowrap;font-family:'Geist',sans-serif;font-size:14px;padding:9px 16px;border-radius:999px;border:0;cursor:pointer;background:{{ tb.bg }};color:{{ tb.tone }};transition:background .2s,color .2s">{{ tb.label }}</button>
+      </sc-for>
     </div>
     <h3 style="font-size:clamp(26px,3.4vw,46px);line-height:1.06;letter-spacing:-0.04em;font-weight:500;margin:0 0 clamp(24px,5vh,56px);max-width:24ch;color:#C9CED6;text-wrap:balance">{{ activeCase.question }}</h3>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(24px,4vw,64px);align-items:start">
+    <div class="dh-story" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(24px,4vw,64px);align-items:start">
       <div data-cv="steps" style="display:flex;flex-direction:column;min-width:0">
         <sc-for list="{{ activeCase.steps }}" as="s" hint-placeholder-count="4">
-          <div style="min-height:70vh;display:flex;flex-direction:column;justify-content:center;gap:16px">
+          <div class="dh-step" style="min-height:70vh;display:flex;flex-direction:column;justify-content:center;gap:16px">
             <div style="display:flex;align-items:center;gap:14px">
               <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#3B82F6">{{ s.no }}</span>
               <span style="height:1px;flex:1;background:rgba(255,255,255,0.07)"></span>
@@ -336,7 +368,7 @@
           </div>
         </sc-for>
       </div>
-      <div style="align-self:stretch;min-width:0">
+      <div class="dh-story-vis" style="align-self:stretch;min-width:0">
         <div style="position:sticky;top:15vh;height:66vh;border-radius:24px;border:1px solid rgba(255,255,255,0.08);background:#08090C;overflow:hidden;display:flex;flex-direction:column">
           <canvas data-cv="story" style="flex:1;width:100%;min-height:0;display:block"></canvas>
           <div style="padding:14px 20px;border-top:1px solid rgba(255,255,255,0.06);font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380">{{ storyCaption }}</div>
@@ -466,7 +498,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;name&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Diego Hernández&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identity&quot;},&quot;tagline&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Data. Software. AI. Business.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identity&quot;},&quot;handle&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;github.com/diegoou8&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identity&quot;},&quot;email&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;dhernandez@standardsit.com&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identity&quot;},&quot;linkedinHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://www.linkedin.com/in/diego-thinkbig/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identity&quot;},&quot;cvHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/Diego-Hernandez-CV.pdf&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identity&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#3B82F6&quot;,&quot;options&quot;:[&quot;#3B82F6&quot;,&quot;#22D3EE&quot;,&quot;#A78BFA&quot;,&quot;#F97316&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Look&quot;},&quot;showIntro&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Look&quot;},&quot;enableMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Look&quot;}}">
 class Component extends DCLogic {
-  state = { storyStep: 0, caseId: "p1", q: "", busy: false, res: null, revealN: 0, pct: 0, intro: 0, wIdx: 0, wOp: 1, act: null, heatSrc: "all", tip: -1, bf: 0 };
+  state = { storyStep: 0, caseId: "p1", q: "", busy: false, res: null, revealN: 0, pct: 0, intro: 0, wIdx: 0, wOp: 1, act: null, heatSrc: "all", tip: -1, bf: 0, menu: false };
   sp = 0; t = 0; els = {}; sysN = null;
   inputRef = React.createRef();
   words = ["a dashboard.", "an automated data pipeline.", "a web application.", "an AI system."];
@@ -495,7 +527,7 @@ class Component extends DCLogic {
       { id: "p2", label: "Custom PDF Reader with LLM",
         body: "A KPI import pipeline for monthly partner reports: keyword and header matching find the right pages, an LLM vision model reads the tables, and every value is pinned to its place on the page and held for review before it loads.",
         stack: ["Python", "FastAPI", "PyMuPDF", "Vision LLM", "SharePoint", "SQL"] },
-      { id: "p3", label: "P&L and AR Estimation",
+      { id: "p3", label: "P&L and Working Interest Estimation",
         body: "Probabilistic estimation of receivables collection turned into a P&L and cash forecast, with confidence bands finance actually reads before closing the month.",
         stack: ["Forecasting", "Pandas", "SQL", "Warehouse", "Statistics"] }
     ];
@@ -533,15 +565,45 @@ class Component extends DCLogic {
           { no: "STEP 03", title: "Vision extraction", body: "Matched pages are rendered to images and read in parallel by an LLM vision model, guided by the template's known sections. Rows that don't parse get a second recovery pass." },
           { no: "STEP 04", title: "Checked, then approved", body: "Each value is located on the page with a bounding box. Nothing loads until a reviewer approves it, and rows that failed go to the review queue instead of being dropped." }
         ] },
-      { id: "p3", no: "CASE-03", title: "P&L and AR Estimation", lens: "AGING · PROBABILITY · FORECAST",
-        question: "How an open ledger becomes a forecast",
-        captions: ["RAW LEDGER LINES, UNSORTED", "AGING BUCKETS BY DAYS OUTSTANDING",
-          "COLLECTION PROBABILITY PER BUCKET", "WEIGHTED 12-WEEK CASH FORECAST"],
+      { id: "p3", no: "CASE-03", title: "P&L and Working Interest Estimation", lens: "EXTRACT · MODEL · ALLOCATE · REPORT",
+        question: "How a daily extract becomes a company-wide P&L by owner",
+        captions: ["LINKED SERVER EXTRACT, EVERY MORNING", "ACCOUNTS ROLLED UP INTO ONE P&L MODEL",
+          "EACH LINE SPLIT BY OWNER WORKING INTEREST", "ONE POWER BI REPORT FOR THE WHOLE COMPANY"],
         steps: [
-          { no: "STEP 01", title: "Ledger lines", body: "Every invoice, credit note and payment arrives as a row. Thousands a month, with no structure beyond a date, a customer and an amount." },
-          { no: "STEP 02", title: "Aging", body: "Group the open balance by days outstanding. The shape of those buckets is the first honest signal of collection risk." },
-          { no: "STEP 03", title: "Probability", body: "Each open invoice gets a modelled probability of being collected, learned from payment history, terms and customer behaviour." },
-          { no: "STEP 04", title: "Forecast", body: "Weighted by that probability, the open ledger becomes a cash and P&L forecast with a stated confidence band." }
+          { no: "STEP 01", title: "The daily extract", body: "Every morning a SQL job pulls the accounting data across a linked server into the warehouse. Nobody exports a file or rebuilds a spreadsheet." },
+          { no: "STEP 02", title: "One P&L model", body: "Revenue and expense accounts are mapped once in SQL, so the P&L has a single definition and every report reads the same numbers." },
+          { no: "STEP 03", title: "Working interest by owner", body: "A P&L view applies each owner's working interest to the lines it covers, estimating every owner's share of revenue and cost before the books close." },
+          { no: "STEP 04", title: "Power BI for everyone", body: "The model feeds one Power BI report the whole company opens, with the same definitions behind every visual." }
+        ] },
+      { id: "p4", no: "CASE-04", title: "Month-End Reporting and Healthcare Mapping Tool", lens: "MAP · RECONCILE · CLOSE",
+        question: "How scattered practice data becomes a month-end report finance trusts",
+        captions: ["PROCEDURE CODES FROM EVERY SOURCE SYSTEM", "EACH CODE MAPPED ONCE, UNMAPPED ONES QUEUED",
+          "ALIASES RECONCILE PROVIDERS AND PRACTICES", "MONTH-END PRODUCTIVITY FROM ONE MAPPING"],
+        steps: [
+          { no: "STEP 01", title: "Codes from everywhere", body: "Procedure codes, providers and departments arrive from several billing and source systems, each with its own names for the same practice or physician." },
+          { no: "STEP 02", title: "Map it once", body: "Every procedure code is mapped to a category, a service line and its RVUs. New codes land in an unmapped queue instead of quietly dropping out of the totals." },
+          { no: "STEP 03", title: "Reconcile the names", body: "Alias tables tie each system's spelling of a provider, practice, department or specialty to one record, and changes sync straight to the warehouse." },
+          { no: "STEP 04", title: "Close the month", body: "Month-end report books are built from that single mapping, with saved filters and templates, so productivity and financial numbers come out the same way every month." }
+        ] },
+      { id: "p5", no: "CASE-05", title: "Investor Statements Generator", lens: "LEDGER · CALCULATE · RENDER · DELIVER",
+        question: "How a quarter of fund transactions becomes a statement for every investor",
+        captions: ["CONTRIBUTIONS AND DISTRIBUTIONS PER INVESTOR", "QUARTER, YTD, SINCE INCEPTION AND IRR",
+          "ONE HTML TEMPLATE PER FUND, RENDERED TO PDF", "EVERY INVESTOR'S STATEMENT IN ONE DOWNLOAD"],
+        steps: [
+          { no: "STEP 01", title: "The ledger", body: "Every contribution, distribution and capital account entry for each investor, across several fund structures that each define a statement differently." },
+          { no: "STEP 02", title: "The math, batched", body: "Quarter, year-to-date and since-inception figures plus IRR are calculated for every investor in a fixed number of queries, however many investors a fund has." },
+          { no: "STEP 03", title: "Render", body: "Each fund type has its own HTML template. WeasyPrint renders it to a letter-size PDF off the main thread, so the API stays responsive while it works." },
+          { no: "STEP 04", title: "Deliver", body: "One request produces a statement per investor, zipped into a single download. It replaced the legacy scripts that built them one at a time." }
+        ] },
+      { id: "p6", no: "CASE-06", title: "Daily Report Automation with Web Scraping", lens: "SCRAPE · MATCH · REPORT · PUBLISH",
+        question: "How field production from several portals becomes one morning report",
+        captions: ["SCRAPERS PULL VOLUMES FROM GATHERER PORTALS", "EVERY SOURCE'S WELL NAME MATCHED TO ONE WELL",
+          "EXCEL REPORT BUILT AND EMAILED EACH MORNING", "BROWSER AUTOMATION UPLOADS TO THE FIELD APP"],
+        steps: [
+          { no: "STEP 01", title: "Scrape the sources", body: "Scheduled scrapers sign in to gatherer and field portals and pull daily oil, gas and water volumes into warehouse staging tables." },
+          { no: "STEP 02", title: "One well, many names", body: "Every source names a well differently. A mapping layer ties them to one well record, new wells are discovered automatically, and manual fixes survive the next sync." },
+          { no: "STEP 03", title: "The morning report", body: "The daily production report is built as a formatted Excel workbook with summaries and trends, then emailed through Microsoft Graph before the day starts." },
+          { no: "STEP 04", title: "Push it back", body: "A Playwright browser session uploads the same production to the field operations platform, so nobody re-keys the numbers by hand." }
         ] }
     ];
   }
@@ -747,9 +809,9 @@ class Component extends DCLogic {
         const wk = pr.weekly || [], mx = Math.max(1, ...wk), age = pr.lastActive ? (now - new Date(pr.lastActive).getTime()) / WK : 99;
         return { cat: pr.category, title: pr.alias, summary: pr.summary, tags: pr.tags || [],
           last: age < 1 ? "Active this week" : age < 2 ? "Active last week" : pr.lastActive ? "Last active " + new Date(pr.lastActive + "T00:00:00").toLocaleDateString("en-US", { month: "short", year: "numeric" }) : "",
-          bars: wk.map(v => ({ h: Math.max(6, v / mx * 100) + "%", op: v ? 1 : 0.2 })),
+          bars: wk.map(v => ({ h: Math.max(6, v / mx * 100) + "%", op: v ? 1 : 0.2 })), hasBars: !pr.badge,
           isPrivate: pr.visibility === "private", isPublic: pr.visibility === "public", href: pr.url || "#",
-          owner: "Private repository" + (pr.org ? " at " + pr.org : ""),
+          owner: pr.badge || "Private repository" + (pr.org ? " at " + pr.org : ""),
           hasCase: !!pr.caseId, onCase: () => this.goCase(pr.caseId) };
       })
     });
@@ -784,7 +846,8 @@ class Component extends DCLogic {
       if (sv) this.bp = Math.max(0, Math.min(1, window.scrollY / Math.max(1, sv.offsetTop - window.innerHeight * 0.25)));
       const el = this.el("steps"); if (!el) return;
       const r = el.getBoundingClientRect(), vh = window.innerHeight;
-      this.sp = Math.max(0, Math.min(1, (vh * 0.5 - r.top) / Math.max(1, r.height)));
+      const ref = window.innerWidth <= 760 ? vh * 0.75 : vh * 0.5;
+      this.sp = Math.max(0, Math.min(1, (ref - r.top) / Math.max(1, r.height)));
       const st = this.sp < 0.25 ? 0 : this.sp < 0.5 ? 1 : this.sp < 0.75 ? 2 : 3;
       if (st !== this.state.storyStep) this.setState({ storyStep: st });
     };
@@ -938,9 +1001,8 @@ class Component extends DCLogic {
       ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(pad + bw, y); ctx.stroke();
     }
     const args = [ctx, pad, bw, bh, this.sp, this.accent(), w, h];
-    if (this.state.caseId === "p1") this.drawMcp.apply(this, args);
-    else if (this.state.caseId === "p2") this.drawPdf.apply(this, args);
-    else this.drawAr.apply(this, args);
+    const draw = { p1: this.drawMcp, p2: this.drawPdf, p3: this.drawPnl, p4: this.drawHealth, p5: this.drawStmt, p6: this.drawWells }[this.state.caseId] || this.drawMcp;
+    draw.apply(this, args);
     ctx.globalAlpha = 1;
   }
 
@@ -948,53 +1010,256 @@ class Component extends DCLogic {
 
   mono(ctx, size) { ctx.font = "400 " + (size || 10) + "px 'Geist Mono', monospace"; }
 
-  drawAr(ctx, pad, bw, bh, p, ac) {
-    const ease = this.ease;
-    const collapse = ease((p - 0.06) / 0.22);
-    const buckets = [0.74, 0.52, 0.36, 0.22, 0.12], probs = [0.96, 0.88, 0.7, 0.45, 0.22];
-    const nb = buckets.length, slot = bw / nb;
-    for (let i = 0; i < 150; i++) {
-      const g = ((i * 2654435761) % 1000) / 1000, hh = ((i * 40503) % 997) / 997;
-      const bi = Math.min(nb - 1, Math.floor(g * g * nb));
-      const fx = pad + g * bw, fy = pad + hh * bh;
-      const tx = pad + slot * bi + slot * 0.5 + (hh - 0.5) * slot * 0.5;
-      const ty = pad + bh - hh * buckets[bi] * bh;
-      ctx.globalAlpha = 0.55 * (1 - collapse) + 0.08;
-      ctx.fillStyle = "#7C838D";
-      ctx.beginPath();
-      ctx.arc(fx + (tx - fx) * collapse, fy + (ty - fy) * collapse, 1.7, 0, 6.2832); ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-    const barA = ease((p - 0.1) / 0.22), probA = ease((p - 0.45) / 0.17), lineA = ease((p - 0.7) / 0.18);
-    buckets.forEach((v, i) => {
-      const x = pad + slot * i + slot * 0.16, wd = slot * 0.68, th = v * bh * barA;
-      ctx.globalAlpha = 0.5 * barA * (1 - lineA * 0.55);
-      ctx.fillStyle = "#2A313A"; ctx.fillRect(x, pad + bh - th, wd, th);
-      if (probA > 0) {
-        ctx.globalAlpha = probA * (1 - lineA * 0.4);
-        ctx.fillStyle = ac;
-        const ph = th * probs[i]; ctx.fillRect(x, pad + bh - ph, wd, ph);
-      }
-      ctx.globalAlpha = 0.9 * barA; ctx.fillStyle = "#7C838D";
-      this.mono(ctx, 10); ctx.textBaseline = "top"; ctx.textAlign = "center";
-      ctx.fillText(["0-30", "31-60", "61-90", "91-120", "120+"][i], x + wd / 2, pad + bh + 9);
+  rr(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else ctx.rect(x, y, w, h);
+  }
+
+  drawPnl(ctx, pad, bw, bh, p, ac) {
+    const ease = this.ease, t = this.motion() ? this.t : 0;
+    const pullA = ease(p / 0.2), barA = ease((p - 0.25) / 0.18), splitA = ease((p - 0.5) / 0.18), biA = ease((p - 0.75) / 0.18);
+    const bxW = Math.min(118, bw * 0.34), bxH = 26, sy = pad;
+    this.mono(ctx, 9); ctx.textBaseline = "middle"; ctx.textAlign = "center";
+    [["LINKED SERVER", pad, false], ["WAREHOUSE", pad + bw - bxW, true]].forEach(([lab, x, on]) => {
+      ctx.globalAlpha = 0.4 + 0.6 * pullA;
+      this.rr(ctx, x, sy, bxW, bxH, 6); ctx.fillStyle = "#0C0F13"; ctx.fill();
+      ctx.strokeStyle = on ? ac : "#2A313A"; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = on ? ac : "#7C838D"; ctx.fillText(lab, x + bxW / 2, sy + bxH / 2 + 0.5);
     });
-    ctx.textAlign = "left";
-    if (lineA > 0) {
-      const pts = [];
-      for (let i = 0; i <= 12; i++) {
-        const f = i / 12;
-        const v = 0.22 + 0.5 * (1 - Math.exp(-f * 2.4)) + Math.sin(f * 7.5) * 0.03;
-        pts.push([pad + f * bw, pad + bh - v * bh]);
-      }
-      ctx.globalAlpha = lineA * 0.16; ctx.fillStyle = ac;
-      ctx.beginPath();
-      pts.forEach((q, i) => i ? ctx.lineTo(q[0], q[1] - 14 - i) : ctx.moveTo(q[0], q[1] - 14));
-      for (let i = pts.length - 1; i >= 0; i--) ctx.lineTo(pts[i][0], pts[i][1] + 14 + i);
-      ctx.closePath(); ctx.fill();
-      ctx.globalAlpha = lineA; ctx.strokeStyle = ac; ctx.lineWidth = 2;
-      ctx.beginPath(); pts.forEach((q, i) => i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1])); ctx.stroke();
+    const x0 = pad + bxW, x1 = pad + bw - bxW, ly = sy + bxH / 2;
+    ctx.globalAlpha = 0.5 * pullA; ctx.strokeStyle = "#2A313A";
+    ctx.beginPath(); ctx.moveTo(x0, ly); ctx.lineTo(x1, ly); ctx.stroke();
+    ctx.fillStyle = ac;
+    for (let i = 0; i < 4; i++) {
+      const u = (t * 0.4 + i / 4) % 1;
+      ctx.globalAlpha = pullA * (1 - biA * 0.6);
+      ctx.beginPath(); ctx.arc(x0 + (x1 - x0) * u, ly, 2.2, 0, 6.2832); ctx.fill();
     }
+    const items = [["Revenue", 1], ["Opex", -0.38], ["G&A", -0.14], ["Taxes", -0.08], ["Net", 0.4]];
+    const shares = [0.5, 0.3, 0.2], tones = [1, 0.62, 0.34];
+    const top = sy + bxH + 34, base = pad + bh, H = base - top;
+    const slot = bw / items.length, wd = slot * 0.56;
+    let run = 0;
+    items.forEach(([lab, v], i) => {
+      const x = pad + slot * i + (slot - wd) / 2, pos = v > 0;
+      let lo, hi;
+      if (i === 0 || i === items.length - 1) { lo = 0; hi = Math.abs(v); } else { hi = run; lo = run + v; }
+      if (i === 0) run = v; else if (i < items.length - 1) run += v;
+      const yTop = base - hi * H * barA, yBot = base - lo * H * barA, hh = yBot - yTop;
+      ctx.globalAlpha = barA * (pos ? 0.9 : 0.6) * (1 - splitA);
+      ctx.fillStyle = pos ? ac : "#3A424D"; ctx.fillRect(x, yTop, wd, hh);
+      if (splitA > 0.01) {
+        let acc = yBot;
+        shares.forEach((s, k) => {
+          const sh = hh * s;
+          ctx.globalAlpha = barA * splitA * tones[k] * (pos ? 1 : 0.7);
+          ctx.fillStyle = pos ? ac : "#5A626E";
+          ctx.fillRect(x, acc - sh + (k ? 1 : 0), wd, sh - (k ? 1 : 0));
+          acc -= sh;
+        });
+      }
+      ctx.globalAlpha = barA; ctx.fillStyle = "#7C838D"; this.mono(ctx, 9);
+      ctx.textBaseline = "top"; ctx.textAlign = "center";
+      ctx.fillText(lab, x + wd / 2, base + 8);
+    });
+    ctx.textBaseline = "middle";
+    if (splitA > 0) {
+      ctx.globalAlpha = splitA; this.mono(ctx, 9); ctx.textAlign = "right";
+      let lx = pad + bw;
+      ["C 20%", "B 30%", "OWNER A 50%"].forEach((s, k) => {
+        const tw = ctx.measureText(s).width;
+        ctx.fillStyle = "#C9CED6"; ctx.fillText(s, lx, top - 14);
+        ctx.globalAlpha = splitA * tones[2 - k]; ctx.fillStyle = ac;
+        ctx.fillRect(lx - tw - 12, top - 18, 8, 8);
+        ctx.globalAlpha = splitA; lx -= tw + 22;
+      });
+    }
+    if (biA > 0) {
+      ctx.globalAlpha = biA * 0.7; ctx.strokeStyle = ac; ctx.lineWidth = 1;
+      this.rr(ctx, pad - 10, top - 30, bw + 20, base - top + 52, 12); ctx.stroke();
+      ctx.globalAlpha = biA; ctx.fillStyle = ac; this.mono(ctx, 9); ctx.textAlign = "left";
+      ctx.fillText(bw < 340 ? "POWER BI" : "POWER BI · P&L BY OWNER", pad, top - 14 - (splitA > 0 && bw < 420 ? 0 : 0));
+    }
+    ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+  }
+
+  drawHealth(ctx, pad, bw, bh, p, ac) {
+    const ease = this.ease;
+    const mapA = ease((p - 0.18) / 0.2), lateA = ease((p - 0.38) / 0.1), aliasA = ease((p - 0.5) / 0.18), closeA = ease((p - 0.75) / 0.18);
+    const cats = ["E&M", "Surgery", "Imaging", "Lab"], rvu = [0.78, 1, 0.52, 0.3];
+    const codes = [["99213", 0], ["27447", 1], ["99214", 0], ["70551", 2], ["80053", 3], ["29881", 1], ["99203", 0], ["74177", 2],
+      ["85025", 3], ["0042T", -3], ["99215", 0], ["63047", 1], ["71046", 2], ["36415", 3], ["J1885", -1]];
+    const areaH = bh * 0.6, colW = bw / cats.length, chipW = Math.min(colW * 0.82, 54), chipH = 16;
+    const floor = pad + areaH - 20, counts = [0, 0, 0, 0];
+    if (closeA > 0) {
+      cats.forEach((c, i) => {
+        const bwd = colW * 0.7, x = pad + colW * i + (colW - bwd) / 2, ht = (areaH - 46) * rvu[i] * closeA;
+        ctx.globalAlpha = 0.85 * closeA; ctx.fillStyle = ac; ctx.fillRect(x, floor - ht, bwd, ht);
+        ctx.globalAlpha = closeA; ctx.fillStyle = "#F2F4F7"; this.mono(ctx, 9);
+        ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+        ctx.fillText("RVU " + Math.round(rvu[i] * 640), x + bwd / 2, floor - ht - 4);
+      });
+    }
+    this.mono(ctx, 9); ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    codes.forEach(([code, c], i) => {
+      const g = ((i * 2654435761) % 1000) / 1000, hh = ((i * 40503) % 997) / 997;
+      const unm = c < 0, cc = Math.abs(c), m = unm ? lateA : mapA;
+      const fx = pad + g * (bw - chipW), fy = pad + hh * (areaH - chipH - 40);
+      const tx = pad + colW * cc + (colW - chipW) / 2, ty = floor - (counts[cc]++ + 1) * (chipH + 3);
+      const x = fx + (tx - fx) * m, y = fy + (ty - fy) * m;
+      const flag = unm && mapA > 0.5 && m < 0.5;
+      ctx.globalAlpha = (0.55 + 0.45 * Math.max(m, flag ? 1 : 0)) * (1 - closeA);
+      this.rr(ctx, x, y, chipW, chipH, 4);
+      ctx.fillStyle = flag ? "#15110C" : "#101419"; ctx.fill();
+      ctx.strokeStyle = flag ? "#B98A3E" : m > 0.9 ? "rgba(59,130,246,0.55)" : "#242A32"; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = flag ? "#E0B36A" : m > 0.9 ? "#C9CED6" : "#7C838D";
+      ctx.fillText(flag ? code + " ?" : code, x + chipW / 2, y + chipH / 2 + 0.5);
+    });
+    ctx.globalAlpha = mapA; ctx.fillStyle = "#7C838D"; ctx.textBaseline = "top";
+    cats.forEach((c, i) => ctx.fillText(c, pad + colW * (i + 0.5), floor + 6));
+    if (mapA > 0.5 && lateA < 1) {
+      ctx.globalAlpha = (1 - lateA) * mapA; ctx.fillStyle = "#E0B36A"; ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+      ctx.fillText("UNMAPPED QUEUE · 2", pad, pad - 6);
+    }
+    const ay = pad + areaH + 16, rowH = Math.min(20, (bh - areaH - 22) / 3);
+    const names = ["SMITH, JOHN", "Dr. J. Smith", "J SMITH MD"], rx = pad + bw * 0.6, ry = ay + rowH;
+    ctx.textBaseline = "middle"; ctx.textAlign = "left";
+    names.forEach((n, i) => {
+      const y = ay + i * rowH;
+      ctx.globalAlpha = aliasA * 0.9; ctx.fillStyle = "#7C838D"; ctx.fillText(n, pad, y);
+      const nx = pad + ctx.measureText(n).width + 8;
+      ctx.globalAlpha = aliasA * 0.6; ctx.strokeStyle = ac; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(nx, y); ctx.bezierCurveTo((nx + rx) / 2, y, (nx + rx) / 2, ry, rx - 8, ry); ctx.stroke();
+    });
+    if (aliasA > 0) {
+      ctx.globalAlpha = aliasA; ctx.fillStyle = ac;
+      ctx.fillText(bw < 340 ? "PROVIDER 0142" : "PROVIDER 0142 · ONE RECORD", rx, ry);
+    }
+    if (closeA > 0) {
+      ctx.globalAlpha = closeA; ctx.fillStyle = "#F2F4F7"; ctx.textBaseline = "alphabetic";
+      ctx.fillText("MONTH-END · SEP 2026", pad, pad - 6);
+    }
+    ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+  }
+
+  drawStmt(ctx, pad, bw, bh, p, ac) {
+    const ease = this.ease;
+    const ledA = ease(p / 0.2), calcA = ease((p - 0.25) / 0.18), pageA = ease((p - 0.5) / 0.18), zipA = ease((p - 0.75) / 0.18);
+    const lw = bw * 0.46;
+    const rows = [["CONTRIB", "+250,000"], ["DISTRIB", "-12,400"], ["DISTRIB", "-12,650"], ["CONTRIB", "+50,000"],
+      ["DRIP", "+3,120"], ["DISTRIB", "-13,010"], ["REDEEM", "-25,000"], ["DISTRIB", "-13,200"]];
+    const rh = Math.min(30, (bh * 0.6) / rows.length);
+    this.mono(ctx, bw < 340 ? 8 : bw > 500 ? 10 : 9); ctx.textBaseline = "middle";
+    rows.forEach((r, i) => {
+      const y = pad + i * rh;
+      ctx.globalAlpha = ledA * (1 - pageA * 0.6);
+      ctx.fillStyle = "#0F1318"; ctx.fillRect(pad, y, lw, rh - 4);
+      ctx.textAlign = "left"; ctx.fillStyle = "#7C838D"; ctx.fillText(r[0], pad + 6, y + (rh - 4) / 2);
+      ctx.textAlign = "right"; ctx.fillStyle = r[1][0] === "+" ? ac : "#C9CED6"; ctx.fillText(r[1], pad + lw - 6, y + (rh - 4) / 2);
+    });
+    const calc = [["QTR NET", "-24,940"], ["YTD", "+212,060"], ["ITD", "+237,860"], ["IRR", "9.8%"]];
+    const cy = pad + rows.length * rh + 14, ch = Math.min(26, (pad + bh - cy) / calc.length);
+    calc.forEach((c, i) => {
+      const y = cy + i * ch;
+      ctx.globalAlpha = calcA * (1 - pageA * 0.3);
+      ctx.textAlign = "left"; ctx.fillStyle = "#7C838D"; ctx.fillText(c[0], pad + 6, y);
+      ctx.textAlign = "right"; ctx.fillStyle = i === 3 ? "#F2F4F7" : ac; ctx.fillText(c[1], pad + lw - 6, y);
+    });
+    const off = 7, room = bw - lw - 30 - off * 4;
+    const pw = Math.max(60, Math.min(room, (bh * 0.78) / 1.294)), ph = pw * 1.294;
+    const px = pad + bw - pw - off * 4 * zipA, py = pad + off * 4 * zipA;
+    if (pageA > 0) {
+      ctx.globalAlpha = pageA * 0.6; ctx.strokeStyle = ac; ctx.lineWidth = 1;
+      const ax = pad + lw + 6, ay = pad + ph * 0.45;
+      ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(px - 6, ay); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(px - 11, ay - 4); ctx.lineTo(px - 6, ay); ctx.lineTo(px - 11, ay + 4); ctx.stroke();
+    }
+    for (let k = 4; k >= 0; k--) {
+      if (k > 0 && zipA <= 0) continue;
+      const x = px + k * off * zipA, y = py - k * off * zipA;
+      ctx.globalAlpha = k ? zipA * (0.9 - k * 0.15) : pageA;
+      ctx.fillStyle = "#0C0F13"; ctx.fillRect(x, y, pw, ph);
+      ctx.strokeStyle = k ? "#242A32" : "#3A424D"; ctx.lineWidth = 1; ctx.strokeRect(x, y, pw, ph);
+      if (k) continue;
+      ctx.fillStyle = ac; ctx.fillRect(x + 10, y + 10, pw * 0.42, 6);
+      ctx.fillStyle = "#2A313A";
+      for (let j = 0; j < 3; j++) ctx.fillRect(x + 10, y + 24 + j * 7, pw * (0.7 - j * 0.15), 3);
+      const tY = y + ph * 0.36;
+      for (let j = 0; j < 6; j++) {
+        const yy = tY + j * (ph * 0.075);
+        ctx.fillStyle = j === 0 ? "#3A424D" : "#1C2128"; ctx.fillRect(x + 10, yy, pw - 20, 3);
+        if (j === 4) { ctx.fillStyle = ac; ctx.fillRect(x + pw * 0.62, yy - 1, pw * 0.38 - 10, 5); }
+      }
+      ctx.fillStyle = "#2A313A"; ctx.fillRect(x + 10, y + ph - 18, pw * 0.3, 3);
+    }
+    if (zipA > 0) {
+      ctx.globalAlpha = zipA; ctx.fillStyle = ac; this.mono(ctx, 9);
+      ctx.textAlign = "right"; ctx.textBaseline = "top";
+      ctx.fillText(bw < 340 ? "Q3.zip · 214 PDFs" : "statements_Q3.zip · 214 PDFs", pad + bw, py + ph + 12);
+    }
+    ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+  }
+
+  drawWells(ctx, pad, bw, bh, p, ac) {
+    const ease = this.ease, t = this.motion() ? this.t : 0;
+    const scrA = ease(p / 0.2), mapA = ease((p - 0.25) / 0.18), repA = ease((p - 0.5) / 0.18), upA = ease((p - 0.75) / 0.2);
+    const bx = Math.min(124, bw * 0.29), bH = Math.max(24, Math.min(34, bh * 0.075)), gapY = bH * 0.45;
+    const portals = ["GATHERER A", "GATHERER B", "FIELD PORTAL"];
+    const sx = pad + (bw - bx) / 2, sY = pad + bH + gapY;
+    this.mono(ctx, bw < 340 ? 8 : bw > 500 ? 10 : 9); ctx.textBaseline = "middle"; ctx.textAlign = "center";
+    const box = (x, y, lab, on, a) => {
+      ctx.globalAlpha = a;
+      this.rr(ctx, x, y, bx, bH, 6); ctx.fillStyle = "#0C0F13"; ctx.fill();
+      ctx.strokeStyle = on ? ac : "#2A313A"; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = on ? ac : "#7C838D"; ctx.fillText(lab, x + bx / 2, y + bH / 2 + 0.5);
+    };
+    portals.forEach((lab, i) => {
+      const y = pad + i * (bH + gapY);
+      box(pad, y, lab, false, 0.45 + 0.55 * scrA);
+      const x0 = pad + bx, y0 = y + bH / 2, x3 = sx, y3 = sY + bH / 2, mx = (x0 + x3) / 2;
+      ctx.globalAlpha = scrA * 0.5; ctx.strokeStyle = "#2A313A";
+      ctx.beginPath(); ctx.moveTo(x0, y0); ctx.bezierCurveTo(mx, y0, mx, y3, x3, y3); ctx.stroke();
+      const u = (t * 0.5 + i * 0.31) % 1, v = 1 - u;
+      ctx.globalAlpha = scrA; ctx.fillStyle = ac;
+      ctx.beginPath(); ctx.arc(v*v*v*x0 + 3*v*v*u*mx + 3*v*u*u*mx + u*u*u*x3, v*v*v*y0 + 3*v*v*u*y0 + 3*v*u*u*y3 + u*u*u*y3, 2.2, 0, 6.2832); ctx.fill();
+    });
+    box(sx, sY, "STAGING", scrA > 0.5, 0.45 + 0.55 * scrA);
+    const gx = pad + bw - bx, gy = pad, gw = bx, gh = bH * 3 + gapY * 2;
+    if (repA > 0) {
+      ctx.globalAlpha = repA * 0.6; ctx.strokeStyle = ac;
+      ctx.beginPath(); ctx.moveTo(sx + bx, sY + bH / 2); ctx.lineTo(gx - 4, sY + bH / 2); ctx.stroke();
+      ctx.globalAlpha = repA; ctx.fillStyle = "#0C0F13"; ctx.fillRect(gx, gy, gw, gh);
+      ctx.strokeStyle = "#2A313A"; ctx.strokeRect(gx, gy, gw, gh);
+      const cw = gw / 4, chh = gh / 6;
+      for (let r = 0; r < 6; r++) for (let c = 0; c < 4; c++) {
+        const k = r * 4 + c, on = r === 0 || (c === 3 && r > 0);
+        if (k / 24 > repA) continue;
+        ctx.fillStyle = r === 0 ? ac : on ? "rgba(59,130,246,0.35)" : "#1C2128";
+        ctx.fillRect(gx + c * cw + 3, gy + r * chh + 3, cw - 6, chh - 6);
+      }
+      ctx.fillStyle = "#7C838D"; ctx.textAlign = "right"; ctx.textBaseline = "top";
+      ctx.fillText("EMAILED 06:30", gx + gw, gy + gh + 6);
+      ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    }
+    const avail = bh - gh - 74, rowH = Math.min(34, avail / 3), my = pad + gh + 34 + (avail - rowH * 3) / 2 + rowH / 2;
+    const names = ["T-BAR RANCH 7-17", "TBAR RANCH #7-17", "1-62003"], rx = pad + bw * 0.62, ry = my + rowH;
+    ctx.textAlign = "left";
+    names.forEach((n, i) => {
+      const y = my + i * rowH;
+      ctx.globalAlpha = mapA * 0.9; ctx.fillStyle = "#7C838D"; ctx.fillText(n, pad, y);
+      const nx = pad + ctx.measureText(n).width + 8;
+      ctx.globalAlpha = mapA * 0.6; ctx.strokeStyle = ac;
+      ctx.beginPath(); ctx.moveTo(nx, y); ctx.bezierCurveTo((nx + rx) / 2, y, (nx + rx) / 2, ry, rx - 8, ry); ctx.stroke();
+    });
+    if (mapA > 0) { ctx.globalAlpha = mapA; ctx.fillStyle = ac; ctx.fillText("WELL 0217", rx, ry); }
+    if (upA > 0) {
+      const uy = pad + bh - 12, uw = bw;
+      ctx.globalAlpha = upA; ctx.fillStyle = "#7C838D";
+      ctx.fillText(upA > 0.98 ? "FIELD APP · UPLOAD QUEUED" : "PLAYWRIGHT · UPLOADING TO FIELD APP", pad, uy - 14);
+      ctx.fillStyle = "#151A20"; ctx.fillRect(pad, uy, uw, 4);
+      ctx.fillStyle = ac; ctx.fillRect(pad, uy, uw * upA, 4);
+    }
+    ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
   }
 
   drawMcp(ctx, pad, bw, bh, p, ac) {
@@ -1224,11 +1489,13 @@ class Component extends DCLogic {
     const email = this.props.email || "dhernandez@standardsit.com";
     const nm = (this.props.name || "Diego Hernández").trim();
     const handle = this.props.handle || "github.com/diegoou8";
-    const kinds = { p1: "Enterprise AI", p2: "Document intelligence", p3: "Financial forecasting" };
-    const tabNames = { p1: "MCP LLM Integrations to DW", p2: "Custom PDF Reader with LLM", p3: "P&L and AR Estimation" };
     const intro = this.state.intro;
     return {
       ...this.consoleVals(email),
+      menuOpen: this.state.menu,
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
+      closeMenu: () => this.setState({ menu: false }),
+      menuClosed: !this.state.menu,
       name: nm,
       tagline: this.props.tagline || "Data. Software. AI. Business.",
       githubHref: "https://" + handle,
@@ -1244,7 +1511,7 @@ class Component extends DCLogic {
       brainIdx: "0" + (this.state.bf + 1) + " / 0" + this.hubs.length,
       tabs: cases.map(c => {
         const on = c.id === this.state.caseId;
-        return { label: tabNames[c.id], on: () => this.setState({ caseId: c.id }),
+        return { label: c.title, on: () => this.setState({ caseId: c.id }),
           bg: on ? "#F2F4F7" : "transparent", tone: on ? "#050607" : "#98A0AB" };
       }),
       activeCase: { question: active.question, steps: active.steps.map((s, i) => ({ no: "0" + (i + 1), title: s.title, body: s.body })) },

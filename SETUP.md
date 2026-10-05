@@ -25,3 +25,6 @@ The script refuses to write the file if a private repo name or the work login sh
    `PERSONAL_LOGIN=… WORK_LOGIN=… GH_WORK_TOKEN=… GH_PERSONAL_TOKEN=… node scripts/build-activity.mjs --hashes`
    Paste the hashes into `activity.config.json`. Don't run `--hashes` in CI, because Actions logs on a public repo are public.
 6. Run **Sync GitHub activity** once from the Actions tab. After that it runs every night.
+
+## Projects without a repository
+A project with no repos (for example SQL Server and Power BI work) can still be listed: give it `"repos": []`, `"alwaysShow": true` and a `"badge"` line to show in place of the commit chart, such as `"SQL Server and Power BI at Standards I.T."`.

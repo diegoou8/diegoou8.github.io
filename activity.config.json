@@ -1,10 +1,10 @@
 {
-  "maxProjects": 6,
+  "maxProjects": 8,
   "includeUnlistedPublic": false,
   "projects": [
     {
       "alias": "MCP LLM Integrations to DW",
-      "category": "Enterprise AI",
+      "category": "Enterprise AI - IT Services",
       "org": "Standards I.T.",
       "caseId": "p1",
       "repos": [
@@ -22,13 +22,12 @@
     },
     {
       "alias": "Custom PDF Reader with LLM",
-      "category": "Document intelligence",
+      "category": "Document Intelligence - Finance",
       "org": "Standards I.T.",
       "caseId": "p2",
       "repos": [
         "sha256:37928798d1b433ce",
-        "sha256:7cb2e9b657bbedaf",
-        "sha256:2fc3065aa4fcc301"
+        "sha256:7cb2e9b657bbedaf"
       ],
       "summary": "A KPI import pipeline that finds the right pages in partner PDF reports, reads their tables with an LLM vision model and holds every value for review before it loads.",
       "tags": [
@@ -39,18 +38,70 @@
       ]
     },
     {
-      "alias": "P&L and AR Estimation",
-      "category": "Financial forecasting",
+      "alias": "P&L and Working Interest Estimation",
+      "category": "Financial Reporting - Oil & Gas",
       "org": "Standards I.T.",
       "caseId": "p3",
-      "repos": [
-        "sha256:REPLACE_WITH_HASH"
-      ],
-      "summary": "Probabilistic receivables collection turned into a P&L and cash forecast with stated confidence bands.",
+      "repos": [],
+      "summary": "A daily linked-server extract builds the company P&L and a view that estimates each owner's working interest, published in one Power BI report for the whole company.",
       "tags": [
-        "SQL",
+        "SQL Server",
+        "Linked server",
+        "Power BI",
+        "DAX"
+      ],
+      "alwaysShow": true,
+      "badge": "SQL Server and Power BI at Standards I.T."
+    },
+    {
+      "alias": "Month-End Reporting and Healthcare Mapping Tool",
+      "category": "Data Platform - Healthcare",
+      "org": "Standards I.T.",
+      "caseId": "p4",
+      "repos": [
+        "sha256:5a62c9a12174f750",
+        "sha256:3bc070e5d4cd682c"
+      ],
+      "summary": "Maps procedure codes, providers and practices across source systems to one record, and builds the month-end report books for productivity and financials.",
+      "tags": [
         "Python",
-        "Forecasting"
+        "FastAPI",
+        "Angular",
+        "SQL Server"
+      ]
+    },
+    {
+      "alias": "Investor Statements Generator",
+      "category": "Document Automation - Finance",
+      "org": "Standards I.T.",
+      "caseId": "p5",
+      "repos": [
+        "sha256:2fc3065aa4fcc301",
+        "sha256:37928798d1b433ce"
+      ],
+      "summary": "Quarterly investor statements for several fund structures: batched capital account math and IRR, HTML templates rendered to PDF, and every statement zipped in one download.",
+      "tags": [
+        "Python",
+        "FastAPI",
+        "WeasyPrint",
+        "SQL Server"
+      ]
+    },
+    {
+      "alias": "Daily Report Automation with Web Scraping",
+      "category": "Automation - Oil & Gas",
+      "org": "Standards I.T.",
+      "caseId": "p6",
+      "repos": [
+        "sha256:9c47ae388986324a",
+        "sha256:19d1ec593ca8bd29"
+      ],
+      "summary": "Scrapers pull daily production from gatherer portals, a mapping layer matches wells across sources, and the morning report is emailed and uploaded to the field app automatically.",
+      "tags": [
+        "Python",
+        "Playwright",
+        "Microsoft Graph",
+        "SQL Server"
       ]
     },
     {
