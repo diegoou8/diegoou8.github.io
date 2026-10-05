@@ -1,139 +1,1262 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego's Data Science Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="nav-left">
-                <h1>Diego Hernandez</h1>
-            </div>
-            <div class="nav-right">
-                <ul>
-                    <li><a href="#about">About me</a></li>
-                    <li><a href="#projects">Last projects</a></li>
-                    <li><a href="#contact">Contact me</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="./image-slot.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #050607; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  ::selection { background: #3B82F6; color: #050607; }
+  a { color: #3B82F6; text-decoration: none; }
+  a:hover { color: #93BBFC; }
+  input::placeholder { color: #5A626E; }
+  input:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid #3B82F6; outline-offset: 3px; }
+  @keyframes dh-blink { 0%, 60% { opacity: 1 } 61%, 100% { opacity: 0.2 } }
+  @keyframes dh-pulse { 0% { box-shadow: 0 0 0 0 rgba(59,130,246,0.6) } 100% { box-shadow: 0 0 0 10px rgba(59,130,246,0) } }
+  @keyframes dh-mq { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+  @keyframes dh-mq-r { from { transform: translateX(-50%) } to { transform: translateX(0) } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</helmet>
+<div style="background:#050607;color:#F2F4F7;font-family:'Geist',system-ui,sans-serif;min-height:100vh;overflow-x:clip">
 
-    <section id="about" class="about-section">
-        <div class="about-container">
-            <div class="about-photo">
-                <!-- Reference to your photo -->
-                <img src="images/diego.jpg" alt="Diego Hernandez" class="profile-pic">
-            </div>
-            <div class="about-text">
-                <h2>Hey, I'm Diego</h2>
-                <p>
-                    I am an enthusiastic Data Scientist and Data Analytics expert, driven by a passion for uncovering the stories hidden within data. For the past 7 years, I have been at the helm of Thinkbig, a data-driven digital marketing agency, where I've had the privilege of leading a talented team in transforming businesses across various industries. What excites me most is the ability to collaborate and apply data analytics to diverse projects in energy, healthcare, and business analysis, turning insights into impactful actions. Let's think big and create something extraordinary together!
-                </p>                
-                <div class="about-buttons">
-                    <a href="#contact" class="btn contact-btn">Contact Me</a>
-                    <a href="resume.pdf" class="btn resume-btn">Resume</a>
-                </div>
-            </div>
+  <sc-if value="{{ introShow }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:100;background:#050607;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(20px,5vw,64px);transform:translateY({{ introY }});transition:transform .9s cubic-bezier(.76,0,.24,1)">
+      <div style="display:flex;justify-content:space-between;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380"><span>{{ name }}</span><span>Fullstack AI engineer</span></div>
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px">
+          <div style="font-size:clamp(80px,16vw,220px);font-weight:600;letter-spacing:-0.06em;line-height:0.8;font-variant-numeric:tabular-nums">{{ pct }}</div>
+          <div style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380;padding-bottom:10px">{{ introMsg }}</div>
         </div>
-    </section>
+        <div style="height:1px;background:#161A20"><div style="height:1px;background:#3B82F6;box-shadow:0 0 12px #3B82F6;width:{{ pctW }}"></div></div>
+      </div>
+    </div>
+  </sc-if>
 
+  <div style="position:fixed;top:14px;left:0;right:0;z-index:50;padding:0 clamp(12px,3vw,40px);pointer-events:none">
+    <nav style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 7px 7px 16px;border-radius:999px;background:rgba(10,12,15,0.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.08);pointer-events:auto">
+      <a href="#top" style="display:flex;align-items:center;gap:10px;color:#F2F4F7;font-weight:600;letter-spacing:-0.02em;font-size:15px;white-space:nowrap">
+        <span style="width:8px;height:8px;border-radius:50%;background:#3B82F6;animation:dh-pulse 2s ease-out infinite"></span>{{ name }}
+      </a>
+      <div style="display:flex;flex-wrap:wrap;gap:2px;font-size:14px">
+        <a href="#solve" style="color:#98A0AB;padding:8px 12px;border-radius:999px;transition:color .2s,background .2s" style-hover="color:#F2F4F7;background:rgba(255,255,255,0.06)">Solve</a>
+        <a href="#work" style="color:#98A0AB;padding:8px 12px;border-radius:999px;transition:color .2s,background .2s" style-hover="color:#F2F4F7;background:rgba(255,255,255,0.06)">Work</a>
+        <a href="#experience" style="color:#98A0AB;padding:8px 12px;border-radius:999px;transition:color .2s,background .2s" style-hover="color:#F2F4F7;background:rgba(255,255,255,0.06)">Experience</a>
+        <a href="#writing" style="color:#98A0AB;padding:8px 12px;border-radius:999px;transition:color .2s,background .2s" style-hover="color:#F2F4F7;background:rgba(255,255,255,0.06)">Writing</a>
+      </div>
+      <a href="#contact" style="padding:9px 16px;border-radius:999px;background:#3B82F6;color:#050607;font-size:14px;font-weight:500;white-space:nowrap" style-hover="background:#93BBFC;color:#050607">Get in touch</a>
+    </nav>
+  </div>
 
-    <section id="skills">
-        <h2>Skills</h2>
-        <div class="skills-container">
-            <div class="skill-category">
-                <h3>Technical Skills</h3>
-                <div class="skill">
-                    <span>Python</span>
-                    <div class="skill-bar">
-                        <div class="skill-level" data-level="90%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <span>SQL</span>
-                    <div class="skill-bar">
-                        <div class="skill-level" data-level="80%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <span>Data Structures</span>
-                    <div class="skill-bar">
-                        <div class="skill-level" data-level="85%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <span>C/C++</span>
-                    <div class="skill-bar">
-                        <div class="skill-level" data-level="70%"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="skill-category">
-                <h3>Soft Skills</h3>
-                <div class="skill">
-                    <span>Leadership</span>
-                    <div class="skill-bar">
-                        <div class="skill-level" data-level="95%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <span>Communication</span>
-                    <div class="skill-bar">
-                        <div class="skill-level" data-level="90%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <span>Problem-Solving</span>
-                    <div class="skill-bar">
-                        <div class="skill-level" data-level="85%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <span>Teamwork</span>
-                    <div class="skill-bar">
-                        <div class="skill-level" data-level="80%"></div>
-                    </div>
-                </div>
-            </div>
+  <section id="top" data-screen-label="Hero" style="position:relative;padding-top:clamp(120px,18vh,180px)">
+    <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(55% 45% at 75% 8%,rgba(59,130,246,0.16),transparent 70%)"></div>
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,0.07) 1px,transparent 1px);background-size:28px 28px;-webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 75%);mask-image:linear-gradient(180deg,#000 0%,transparent 75%)"></div>
+
+    <div style="position:relative;max-width:1320px;margin:0 auto;padding-left:clamp(20px,5vw,64px);padding-right:clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(32px,5vw,72px);align-items:end">
+      <div style="display:flex;flex-direction:column;gap:28px;min-width:0">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#3B82F6;padding:6px 12px;border-radius:999px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25)">{{ tagline }}</span>
         </div>
-    </section>
+        <h1 style="margin:0;font-size:clamp(46px,7vw,104px);line-height:0.94;letter-spacing:-0.055em;font-weight:600;text-wrap:balance;color:#F2F4F7">I build technology that solves real business problems.</h1>
+        <p style="font-size:clamp(17px,1.5vw,19px);line-height:1.6;color:#98A0AB;margin:0;max-width:50ch;text-wrap:pretty">Data scientist, engineer, developer, and former founder with nearly a decade of experience turning business challenges into practical digital solutions.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <a href="#solve" style="display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;background:#F2F4F7;color:#050607;font-size:15px;font-weight:500;white-space:nowrap;transition:background .2s,transform .2s" style-hover="background:#3B82F6;color:#050607;transform:translateY(-1px)">Describe a problem</a>
+          <a href="{{ cvHref }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;border:1px solid rgba(255,255,255,0.12);color:#D5DAE1;font-size:15px;white-space:nowrap;transition:border-color .2s,color .2s" style-hover="border-color:#3B82F6;color:#F2F4F7">Download CV</a>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;min-width:0">
+        <div style="position:relative;width:min(100%,460px);aspect-ratio:4/5;border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:radial-gradient(70% 55% at 50% 44%,rgba(59,130,246,0.14),transparent 70%),#08090C">
+          <canvas data-cv="brain" style="position:absolute;inset:0;width:100%;height:100%;display:block"></canvas>
+          <div style="position:absolute;top:18px;left:20px;right:20px;display:flex;justify-content:space-between;gap:12px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380;pointer-events:none"><span>How the pieces connect</span><span>{{ brainIdx }}</span></div>
+          <div style="position:absolute;left:14px;right:14px;bottom:14px;display:flex;flex-direction:column;gap:3px;padding:12px 14px;border-radius:16px;background:rgba(5,6,7,0.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08);pointer-events:none">
+            <span style="font-size:15px;font-weight:500;letter-spacing:-0.01em;color:#F2F4F7">{{ brainName }}</span>
+            <span style="font-size:13px;line-height:1.45;color:#98A0AB">{{ brainNote }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:diegoh@ou.edu">diegoh@ou.edu</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/diego-thinkbig/" target="_blank">diego-thinkbig</a></p>
-    </section>
+    <div id="solve" data-screen-label="Problem to system" style="position:relative;max-width:1320px;margin:0 auto;padding-left:clamp(20px,5vw,64px);padding-right:clamp(20px,5vw,64px);padding-top:clamp(64px,10vh,110px);scroll-margin-top:80px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(16px,4vw,64px);align-items:end;margin-bottom:28px">
+        <h2 style="font-size:clamp(34px,4.8vw,66px);line-height:1;letter-spacing:-0.045em;font-weight:600;margin:0;max-width:20ch;text-wrap:balance;color:#F2F4F7;font-size:clamp(30px,3.8vw,52px)">Describe a problem. See how I'd turn it into a system.</h2>
+        <p style="font-size:17px;line-height:1.65;color:#98A0AB;margin:0;max-width:60ch;text-wrap:pretty;max-width:46ch">Pick an example or write your own. The answer follows the three steps I use with clients, and the diagram lights up the system I would build.</p>
+      </div>
+      <div style="border-radius:28px;border:1px solid rgba(255,255,255,0.08);background:#08090C;box-shadow:0 40px 120px -40px rgba(59,130,246,0.25),inset 0 1px 0 rgba(255,255,255,0.04);overflow:hidden">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.06)">
+          <div style="display:flex;gap:7px"><span style="width:10px;height:10px;border-radius:50%;background:#1C2128"></span><span style="width:10px;height:10px;border-radius:50%;background:#1C2128"></span><span style="width:10px;height:10px;border-radius:50%;background:#1C2128"></span></div>
+          <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380">problem → system</span>
+          <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#3B82F6">{{ modeLabel }}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr))">
+          <div style="position:relative;min-height:440px;min-width:0;border-right:1px solid rgba(255,255,255,0.06);flex:1.4">
+            <canvas data-cv="sys" style="position:absolute;inset:0;width:100%;height:100%;display:block"></canvas>
+          </div>
+          <div style="padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:22px;min-width:0;min-height:440px">
+            <sc-if value="{{ showEmpty }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:14px;margin:auto 0">
+                <div style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#6B7380;display:flex;align-items:center;gap:8px">Waiting for a problem<span style="width:7px;height:14px;background:#3B82F6;animation:dh-blink 1.1s steps(1) infinite"></span></div>
+                <p style="font-size:clamp(20px,2vw,25px);line-height:1.3;letter-spacing:-0.02em;color:#C9CED6;margin:0;max-width:24ch">Understand the problem. Simplify the process. Build the right solution.</p>
+              </div>
+            </sc-if>
+            <sc-if value="{{ showBusy }}" hint-placeholder-val="{{ false }}">
+              <div style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;display:flex;align-items:center;gap:8px;margin:auto 0">Thinking it through<span style="width:7px;height:14px;background:#3B82F6;animation:dh-blink 0.5s steps(1) infinite"></span></div>
+            </sc-if>
+            <sc-if value="{{ showRes }}" hint-placeholder-val="{{ false }}">
+              <div style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;line-height:1.5;color:#6B7380">&gt; {{ resQ }}</div>
+              <p style="font-size:clamp(21px,2.1vw,27px);line-height:1.22;letter-spacing:-0.025em;color:#F2F4F7;margin:0;text-wrap:pretty">{{ diagnosis }}</p>
+              <div style="display:flex;flex-direction:column">
+                <sc-for list="{{ resSteps }}" as="s" hint-placeholder-count="3">
+                  <div style="display:grid;grid-template-columns:104px minmax(0,1fr);gap:14px;padding:13px 0;border-top:1px solid rgba(255,255,255,0.06);opacity:{{ s.op }};transform:translateY({{ s.ty }});transition:opacity .45s,transform .45s">
+                    <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#3B82F6">{{ s.no }} {{ s.phase }}</span>
+                    <span style="font-size:15px;line-height:1.5;color:#C9CED6">{{ s.text }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:16px;opacity:{{ outcomeOp }};transition:opacity .45s">
+                <div style="display:flex;flex-wrap:wrap;gap:6px">
+                  <sc-for list="{{ resStack }}" as="t" hint-placeholder-count="4">
+                    <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#C9CED6;border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:6px 11px">{{ t }}</span>
+                  </sc-for>
+                </div>
+                <p style="font-size:15px;line-height:1.55;color:#98A0AB;margin:0">{{ outcome }}</p>
+                <a href="{{ talkHref }}" style="align-self:flex-start;font-size:14px;font-weight:500;padding:10px 16px;border-radius:999px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);color:#93BBFC" style-hover="background:#3B82F6;color:#050607">Talk to me about this one</a>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.06);padding:16px 20px 20px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ presets }}" as="pr" hint-placeholder-count="4">
+              <button onClick="{{ pr.on }}" style="background:{{ pr.bg }};border:1px solid {{ pr.bd }};color:{{ pr.tone }};font-family:'Geist',sans-serif;font-size:14px;line-height:1.3;padding:9px 14px;border-radius:999px;cursor:pointer;text-align:left;transition:border-color .2s,color .2s" style-hover="border-color:#3B82F6;color:#F2F4F7">{{ pr.label }}</button>
+            </sc-for>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 6px 6px 20px;border-radius:999px;background:#0E1014;border:1px solid rgba(255,255,255,0.09)">
+            <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:14px;color:#3B82F6">&gt;</span>
+            <input ref="{{ inputRef }}" value="{{ q }}" onChange="{{ onQ }}" onKeyDown="{{ onKey }}" placeholder="Our sales team exports CRM data to Excel every day to build a forecast" style="flex:1;min-width:0;background:transparent;border:0;outline:none;color:#F2F4F7;font-family:'Geist',sans-serif;font-size:16px;padding:10px 0" />
+            <button onClick="{{ onRun }}" style="flex:none;padding:12px 20px;border-radius:999px;background:#3B82F6;color:#050607;border:0;font-family:'Geist',sans-serif;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#93BBFC">{{ runLabel }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-        <p>&copy; 2024 Diego Hernandez. All rights reserved.</p>
-    </footer>
-</body>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const skillLevels = document.querySelectorAll('.skill-level');
-        
-        function checkSkillsInView() {
-            const skillsSection = document.getElementById('skills');
-            const sectionPosition = skillsSection.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight;
+  <section data-screen-label="Expertise strip" style="padding-top:clamp(64px,10vh,110px);display:flex;flex-direction:column;gap:12px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)">
+    <div style="display:flex;gap:12px;width:max-content;animation:dh-mq 40s linear infinite"><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Python</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />FastAPI</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Angular</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />SQL Server</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Azure</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Docker</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />GitHub Actions</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/powerbi.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Power BI</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.simpleicons.org/modelcontextprotocol/F2F4F7" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />MCP</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Python</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />FastAPI</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Angular</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />SQL Server</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Azure</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Docker</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />GitHub Actions</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/powerbi.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Power BI</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.simpleicons.org/modelcontextprotocol/F2F4F7" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />MCP</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Python</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />FastAPI</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Angular</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />SQL Server</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Azure</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Docker</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />GitHub Actions</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/powerbi.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Power BI</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.simpleicons.org/modelcontextprotocol/F2F4F7" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />MCP</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Python</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />FastAPI</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Angular</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />SQL Server</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Azure</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Docker</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />GitHub Actions</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/powerbi.svg" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />Power BI</span><span style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#E3E7EC;border:1px solid rgba(255,255,255,0.09);background:#0A0C0F;border-radius:999px;padding:10px 18px 10px 12px;white-space:nowrap"><img src="https://cdn.simpleicons.org/modelcontextprotocol/F2F4F7" alt="" width="20" height="20" style="width:20px;height:20px;display:block" />MCP</span></div>
+    <div style="display:flex;gap:10px;width:max-content;animation:dh-mq-r 60s linear infinite"><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Enterprise AI</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">AI governance & security</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Analytics engineering</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Data modeling</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Process automation</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Product thinking</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Digital transformation</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Technology strategy</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Requirements analysis</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Stakeholder management</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Financial analytics</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">E-commerce</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Enterprise AI</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">AI governance & security</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Analytics engineering</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Data modeling</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Process automation</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Product thinking</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Digital transformation</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Technology strategy</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Requirements analysis</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Stakeholder management</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">Financial analytics</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB;border:1px dashed rgba(255,255,255,0.1);border-radius:999px;padding:8px 14px;white-space:nowrap">E-commerce</span></div>
+  </section>
 
-            if (sectionPosition < screenPosition) {
-                skillLevels.forEach(skill => {
-                    const level = skill.getAttribute('data-level');
-                    skill.style.width = level;
-                    skill.style.transition = "width 3s ease-in-out"; // Slower animation
-                });
-                window.removeEventListener('scroll', checkSkillsInView);
-            }
-        }
+  <section data-screen-label="About" style="max-width:1320px;margin:0 auto;padding-left:clamp(20px,5vw,64px);padding-right:clamp(20px,5vw,64px);padding-top:clamp(88px,14vh,160px);padding-bottom:0">
+    <div style="display:flex;flex-wrap:wrap;gap:14px">
+      <div data-glow="1" style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;flex:1 1 560px;padding:clamp(26px,3.5vw,44px);display:flex;flex-direction:column;gap:22px">
+        <h2 style="font-size:clamp(34px,4.8vw,66px);line-height:1;letter-spacing:-0.045em;font-weight:600;margin:0;max-width:20ch;text-wrap:balance;color:#F2F4F7;font-size:clamp(32px,3.8vw,52px)">I don't just analyze problems. I build solutions for them.</h2>
+        <p style="font-size:17px;line-height:1.65;color:#98A0AB;margin:0;max-width:60ch;text-wrap:pretty">My background is somewhat unconventional. I started my career as an engineer, became an entrepreneur, spent seven years building and leading a technology and digital solutions company, moved deeper into data science and software engineering, completed a Master's degree in Data Science &amp; Analytics, and now build data-driven systems and applications for businesses in the United States.</p>
+        <p style="font-size:17px;line-height:1.65;color:#98A0AB;margin:0;max-width:60ch;text-wrap:pretty">I don't see data, software, infrastructure, AI, or business strategy as isolated disciplines. They are different tools that can be combined to solve the same problem.</p>
+      </div>
+      <div data-glow="1" style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;flex:1 1 380px;padding:clamp(26px,3.5vw,44px);display:flex;flex-direction:column;justify-content:space-between;gap:32px;min-height:340px">
+        <div style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380">The right solution</div>
+        <div style="font-size:clamp(28px,3vw,42px);line-height:1.08;letter-spacing:-0.04em;font-weight:500">
+          <div style="color:#6B7380">Sometimes the right solution is</div>
+          <div style="color:#F2F4F7;opacity:{{ wOp }};transform:translateY({{ wY }});transition:opacity .3s,transform .3s">{{ word }}</div>
+        </div>
+        <p style="font-size:15px;line-height:1.55;color:#98A0AB;margin:0;max-width:40ch">And sometimes the best solution is simply redesigning the process before writing a single line of code.</p>
+      </div>
+      <div data-glow="1" style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;flex:1 1 300px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:20px">
+        <div style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380">Path</div>
+        <div style="display:flex;flex-direction:column;gap:0;position:relative">
+          <div style="position:absolute;left:4px;top:8px;bottom:8px;width:1px;background:rgba(255,255,255,0.1)"></div>
+          <div style="display:flex;gap:16px;align-items:baseline;padding:8px 0"><span style="width:9px;height:9px;border-radius:50%;background:#2A3038;flex:none;position:relative"></span><span style="font-size:16px;color:#C9CED6">B.S. Petroleum Engineering</span></div>
+          <div style="display:flex;gap:16px;align-items:baseline;padding:8px 0"><span style="width:9px;height:9px;border-radius:50%;background:#2A3038;flex:none;position:relative"></span><span style="font-size:16px;color:#C9CED6">Founder &amp; CEO, ThinkBig</span></div>
+          <div style="display:flex;gap:16px;align-items:baseline;padding:8px 0"><span style="width:9px;height:9px;border-radius:50%;background:#2A3038;flex:none;position:relative"></span><span style="font-size:16px;color:#C9CED6">M.S. Data Science &amp; Analytics</span></div>
+          <div style="display:flex;gap:16px;align-items:baseline;padding:8px 0"><span style="width:9px;height:9px;border-radius:50%;background:#3B82F6;box-shadow:0 0 12px #3B82F6;flex:none;position:relative"></span><span style="font-size:16px;color:#F2F4F7">Data, software &amp; AI at Standards I.T.</span></div>
+        </div>
+      </div>
+      <div data-glow="1" style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;flex:1 1 300px;min-height:300px">
+        <div style="position:absolute;inset:0"><img src="assets/bouldering.jpg" alt="Diego bouldering" style="width:100%;height:100%;object-fit:cover;object-position:40% 45%;display:block" /></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;padding:22px;background:linear-gradient(180deg,transparent,rgba(5,6,7,0.92));pointer-events:none">
+          <div style="font-size:16px;font-weight:500;margin-bottom:4px">Off the clock, bouldering</div>
+          <div style="font-size:14px;line-height:1.5;color:#98A0AB">You analyze the problem, try an approach, fail, adjust, and eventually find the movement that works.</div>
+        </div>
+      </div>
+      <div data-glow="1" style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;flex:1 1 300px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;justify-content:space-between;gap:24px">
+        <div style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380">What ThinkBig taught me</div>
+        <p style="font-size:clamp(19px,1.8vw,23px);line-height:1.35;letter-spacing:-0.02em;color:#F2F4F7;margin:0;text-wrap:pretty">The technically impressive solution is not always the best solution. The best solution is the one that creates measurable value for the business.</p>
+      </div>
+    </div>
+  </section>
 
-        window.addEventListener('scroll', checkSkillsInView);
-        checkSkillsInView(); // Check immediately in case the section is already in view
+  <section data-screen-label="What I do" style="max-width:1320px;margin:0 auto;padding-left:clamp(20px,5vw,64px);padding-right:clamp(20px,5vw,64px);padding-top:clamp(88px,14vh,160px);padding-bottom:0">
+    <h2 style="font-size:clamp(34px,4.8vw,66px);line-height:1;letter-spacing:-0.045em;font-weight:600;margin:0;max-width:20ch;text-wrap:balance;color:#F2F4F7;margin-bottom:clamp(36px,6vh,56px)">What I do</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:14px">
+      <div data-glow="1" style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;flex:1 1 320px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:18px">
+        <h3 style="font-size:26px;line-height:1.1;letter-spacing:-0.03em;font-weight:500;margin:0">Data &amp; Analytics</h3>
+        <p style="font-size:15px;line-height:1.6;color:#98A0AB;margin:0">I design analytics systems that transform fragmented operational and financial data into information businesses can actually use.</p>
+        <div style="margin-top:auto"><div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">Data modeling and analytics architecture</div>
+<div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">Advanced SQL development</div>
+<div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">Power BI and executive reporting</div>
+<div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">Data validation and reconciliation</div>
+<div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">ETL and data pipelines</div>
+<div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">Reporting automation</div></div>
+      </div>
+      <div data-glow="1" style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;flex:1 1 320px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:18px">
+        <h3 style="font-size:26px;line-height:1.1;letter-spacing:-0.03em;font-weight:500;margin:0">Software Engineering</h3>
+        <p style="font-size:15px;line-height:1.6;color:#98A0AB;margin:0">When dashboards and reports aren't enough, I build applications. I work across backend, frontend, databases, APIs, cloud infrastructure, authentication, and deployment.</p>
+        <p style="font-size:15px;line-height:1.6;color:#98A0AB;margin:0">I particularly enjoy replacing manual processes, spreadsheets, and repetitive analyst workflows with systems that people can use themselves.</p>
+        <div style="margin-top:auto;display:flex;flex-wrap:wrap;gap:6px"><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#C9CED6;border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:7px 12px;white-space:nowrap">Python</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#C9CED6;border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:7px 12px;white-space:nowrap">FastAPI</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#C9CED6;border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:7px 12px;white-space:nowrap">Angular</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#C9CED6;border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:7px 12px;white-space:nowrap">SQL Server</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#C9CED6;border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:7px 12px;white-space:nowrap">Azure</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#C9CED6;border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:7px 12px;white-space:nowrap">Docker</span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#C9CED6;border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:7px 12px;white-space:nowrap">CI/CD</span></div>
+      </div>
+      <div data-glow="1" style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;flex:1 1 320px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:18px">
+        <h3 style="font-size:26px;line-height:1.1;letter-spacing:-0.03em;font-weight:500;margin:0">AI &amp; Intelligent Systems</h3>
+        <p style="font-size:15px;line-height:1.6;color:#98A0AB;margin:0">I design secure systems that allow AI assistants to interact with enterprise data while respecting authentication, permissions, data classifications, and organizational security requirements.</p>
+        <div style="margin-top:auto"><div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">LLM applications</div>
+<div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">Model Context Protocol (MCP)</div>
+<div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">Retrieval and vector databases</div>
+<div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">OAuth 2.1 and PKCE</div>
+<div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">Natural-language data exploration</div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:stretch;justify-content:space-between;gap:clamp(20px,3vw,40px);margin-top:clamp(48px,8vh,88px)">
+      <p style="font-size:clamp(22px,2.4vw,32px);line-height:1.3;letter-spacing:-0.03em;color:#C9CED6;margin:0;max-width:34ch;flex:1 1 320px;align-self:center;text-wrap:pretty">I believe the most valuable enterprise AI systems won't simply answer questions — they will understand what a user is allowed to access, interact safely with existing infrastructure, and become another interface to the organization's knowledge.</p>
+      <div style="position:relative;flex:0 0 clamp(150px,16vw,220px);min-height:200px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:#0A0C0F">
+        <div style="position:absolute;inset:0"><img src="assets/portrait.jpg" alt="Diego Hernández" style="width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" data-screen-label="Building" style="max-width:1320px;margin:0 auto;padding-left:clamp(20px,5vw,64px);padding-right:clamp(20px,5vw,64px);padding-top:clamp(88px,14vh,160px);padding-bottom:0;scroll-margin-top:60px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(16px,4vw,64px);align-items:end;margin-bottom:clamp(32px,5vh,48px)">
+      <h2 style="font-size:clamp(34px,4.8vw,66px);line-height:1;letter-spacing:-0.045em;font-weight:600;margin:0;max-width:20ch;text-wrap:balance;color:#F2F4F7">What I'm building</h2>
+      <p style="font-size:16px;line-height:1.6;color:#98A0AB;margin:0;max-width:52ch;text-wrap:pretty">Most of my work lives in private Standards I.T. repositories. This activity syncs from GitHub every night. Only contribution counts and the project summaries I approve are published. Repository names, code and commit messages stay private.</p>
+    </div>
+    <sc-if value="{{ actLoading }}" hint-placeholder-val="{{ true }}">
+      <div style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;padding:32px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380">Loading activity</div>
+    </sc-if>
+    <sc-if value="{{ actFail }}" hint-placeholder-val="{{ false }}">
+      <div style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;padding:32px;font-size:15px;color:#98A0AB">Activity data isn't available yet. It appears after the first nightly sync.</div>
+    </sc-if>
+    <sc-if value="{{ actReady }}" hint-placeholder-val="{{ false }}">
+      <div data-glow="1" style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;padding:clamp(22px,3vw,32px);display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px">
+          <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+            <span style="font-size:clamp(36px,4vw,52px);font-weight:600;letter-spacing:-0.045em;line-height:1;font-variant-numeric:tabular-nums">{{ total }}</span>
+            <span style="font-size:15px;color:#98A0AB">{{ totalLabel }}</span>
+          </div>
+          <div style="display:flex;gap:4px;padding:4px;border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:#07080A">
+            <sc-for list="{{ heatFilters }}" as="hf" hint-placeholder-count="3">
+              <button onClick="{{ hf.on }}" style="font-family:'Geist',sans-serif;font-size:13px;padding:7px 14px;border-radius:999px;border:0;cursor:pointer;background:{{ hf.bg }};color:{{ hf.tone }};transition:background .2s,color .2s">{{ hf.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="position:relative;height:150px;overflow:hidden">
+          <canvas data-cv="heat" style="position:absolute;inset:0;width:100%;height:100%;display:block;cursor:crosshair"></canvas>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px 24px">
+          <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;min-width:0">
+            <div style="width:160px;height:6px;border-radius:999px;background:rgba(255,255,255,0.08);overflow:hidden;display:flex">
+              <div style="height:100%;background:#3B82F6;width:{{ workPct }}"></div>
+              <div style="height:100%;background:#93BBFC;opacity:0.45;width:{{ persPct }}"></div>
+            </div>
+            <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#C9CED6">Standards I.T. {{ workPct }}</span>
+            <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380">Personal {{ persPct }}</span>
+          </div>
+          <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#98A0AB">{{ tipText }}</span>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:14px">
+        <sc-for list="{{ liveProjects }}" as="p" hint-placeholder-count="4">
+          <div data-glow="1" style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;flex:1 1 420px;padding:clamp(22px,3vw,32px);display:flex;flex-direction:column;gap:18px;min-width:0">
+            <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#3B82F6">{{ p.cat }}</span>
+              <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380">{{ p.last }}</span>
+            </div>
+            <h3 style="font-size:clamp(24px,2.6vw,34px);line-height:1.05;letter-spacing:-0.04em;font-weight:600;margin:0;color:#F2F4F7;text-wrap:balance">{{ p.title }}</h3>
+            <p style="font-size:15px;line-height:1.6;color:#98A0AB;margin:0;max-width:52ch;text-wrap:pretty">{{ p.summary }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
+                <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#C9CED6;border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:6px 11px">{{ t }}</span>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:auto">
+              <div style="display:flex;align-items:flex-end;gap:3px;height:36px">
+                <sc-for list="{{ p.bars }}" as="b" hint-placeholder-count="12">
+                  <span style="flex:1;border-radius:2px;background:#3B82F6;height:{{ b.h }};opacity:{{ b.op }}"></span>
+                </sc-for>
+              </div>
+              <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;color:#5A626E">Commits per week, last 12 weeks</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06)">
+              <sc-if value="{{ p.isPrivate }}" hint-placeholder-val="{{ true }}">
+                <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#98A0AB"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex:none"><rect x="2" y="5" width="8" height="6" rx="1.5" fill="none" stroke="#98A0AB" stroke-width="1.2"></rect><path d="M4 5V3.6a2 2 0 0 1 4 0V5" fill="none" stroke="#98A0AB" stroke-width="1.2"></path></svg>{{ p.owner }}</span>
+              </sc-if>
+              <sc-if value="{{ p.isPublic }}" hint-placeholder-val="{{ false }}">
+                <a href="{{ p.href }}" style="font-size:13px;color:#93BBFC" style-hover="color:#F2F4F7">View repository</a>
+              </sc-if>
+              <sc-if value="{{ p.hasCase }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ p.onCase }}" style="font-family:'Geist',sans-serif;font-size:14px;font-weight:500;padding:9px 16px;border-radius:999px;background:transparent;border:1px solid rgba(255,255,255,0.14);color:#F2F4F7;cursor:pointer;transition:background .2s,border-color .2s" style-hover="background:#3B82F6;border-color:#3B82F6;color:#050607">See how it works</button>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:20px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380">
+        <span>{{ otherText }}</span>
+        <span>{{ syncText }}</span>
+      </div>
+    </sc-if>
+  </section>
+
+  <section id="cases" data-screen-label="Case studies" style="max-width:1320px;margin:0 auto;padding-left:clamp(20px,5vw,64px);padding-right:clamp(20px,5vw,64px);padding-top:clamp(88px,14vh,160px);padding-bottom:0;scroll-margin-top:60px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:clamp(32px,5vh,48px)">
+      <h2 style="font-size:clamp(34px,4.8vw,66px);line-height:1;letter-spacing:-0.045em;font-weight:600;margin:0;max-width:20ch;text-wrap:balance;color:#F2F4F7">How it works</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;padding:4px;border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:#0A0C0F">
+        <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="3">
+          <button onClick="{{ tb.on }}" style="font-family:'Geist',sans-serif;font-size:14px;padding:9px 16px;border-radius:999px;border:0;cursor:pointer;background:{{ tb.bg }};color:{{ tb.tone }};transition:background .2s,color .2s">{{ tb.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <h3 style="font-size:clamp(26px,3.4vw,46px);line-height:1.06;letter-spacing:-0.04em;font-weight:500;margin:0 0 clamp(24px,5vh,56px);max-width:24ch;color:#C9CED6;text-wrap:balance">{{ activeCase.question }}</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(24px,4vw,64px);align-items:start">
+      <div data-cv="steps" style="display:flex;flex-direction:column;min-width:0">
+        <sc-for list="{{ activeCase.steps }}" as="s" hint-placeholder-count="4">
+          <div style="min-height:70vh;display:flex;flex-direction:column;justify-content:center;gap:16px">
+            <div style="display:flex;align-items:center;gap:14px">
+              <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#3B82F6">{{ s.no }}</span>
+              <span style="height:1px;flex:1;background:rgba(255,255,255,0.07)"></span>
+            </div>
+            <h4 style="font-size:clamp(26px,3vw,38px);line-height:1.05;letter-spacing:-0.035em;font-weight:500;margin:0;color:#F2F4F7">{{ s.title }}</h4>
+            <p style="font-size:17px;line-height:1.6;color:#98A0AB;margin:0;max-width:44ch;text-wrap:pretty">{{ s.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <div style="align-self:stretch;min-width:0">
+        <div style="position:sticky;top:15vh;height:66vh;border-radius:24px;border:1px solid rgba(255,255,255,0.08);background:#08090C;overflow:hidden;display:flex;flex-direction:column">
+          <canvas data-cv="story" style="flex:1;width:100%;min-height:0;display:block"></canvas>
+          <div style="padding:14px 20px;border-top:1px solid rgba(255,255,255,0.06);font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380">{{ storyCaption }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" data-screen-label="Experience" style="max-width:1320px;margin:0 auto;padding-left:clamp(20px,5vw,64px);padding-right:clamp(20px,5vw,64px);padding-top:clamp(88px,14vh,160px);padding-bottom:0;scroll-margin-top:60px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(24px,4vw,64px);align-items:end;margin-bottom:clamp(40px,7vh,72px)">
+      <h2 style="font-size:clamp(34px,4.8vw,66px);line-height:1;letter-spacing:-0.045em;font-weight:600;margin:0;max-width:20ch;text-wrap:balance;color:#F2F4F7">Engineering gave me the way I think. Data science gave me the tools to scale it.</h2>
+      <div style="display:flex;flex-direction:column;gap:4px;font-size:clamp(17px,1.5vw,19px);line-height:1.5;color:#98A0AB">
+        <span>Engineering helps me understand systems.</span>
+        <span>Data science helps me understand information.</span>
+        <span>Software lets me build the solution.</span>
+        <span style="color:#F2F4F7">And my entrepreneurial experience keeps the focus on the business problem behind all three.</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div data-glow="1" style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;padding:clamp(24px,3.5vw,44px);display:flex;flex-wrap:wrap;gap:clamp(20px,4vw,56px)">
+        <div style="flex:0 1 220px;display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#3B82F6">2024 — Present</span>
+          <span style="font-size:13px;color:#6B7380">Healthcare, energy, investment management, professional services</span>
+        </div>
+        <div style="flex:1 1 480px;display:flex;flex-direction:column;gap:20px;min-width:0">
+          <div>
+            <h3 style="font-size:clamp(26px,3vw,38px);line-height:1.05;letter-spacing:-0.04em;font-weight:600;margin:0 0 6px">Standards I.T.</h3>
+            <div style="font-size:16px;color:#98A0AB">Analytics Administrator / Data &amp; Software Solutions</div>
+          </div>
+          <p style="font-size:17px;line-height:1.65;color:#98A0AB;margin:0;max-width:60ch;text-wrap:pretty">I work directly with business users to understand operational problems, investigate their data and systems, design solutions, and then help build and deploy those solutions.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));column-gap:32px"><div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">Building internal web applications using Python, FastAPI, Angular, SQL, and Azure</div>
+<div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">Developing secure MCP-based tools for natural-language access to organizational data</div>
+<div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">Designing AI and LLM integrations with enterprise databases</div>
+<div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">Deploying containerized applications to Microsoft Azure</div>
+<div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">Creating reconciliation frameworks for validating large financial and transactional datasets</div>
+<div style="padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.45;color:#C9CED6">Automating recurring financial and operational reporting processes</div></div>
+        </div>
+      </div>
+      <div data-glow="1" style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;padding:clamp(24px,3.5vw,44px);display:flex;flex-wrap:wrap;gap:clamp(20px,4vw,56px)">
+        <div style="flex:0 1 220px;display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#3B82F6">7 years</span>
+          <span style="font-size:13px;color:#6B7380">E-commerce, oil &amp; gas</span>
+        </div>
+        <div style="flex:1 1 480px;display:flex;flex-direction:column;gap:20px;min-width:0">
+          <div>
+            <h3 style="font-size:clamp(26px,3vw,38px);line-height:1.05;letter-spacing:-0.04em;font-weight:600;margin:0 0 6px">ThinkBig</h3>
+            <div style="font-size:16px;color:#98A0AB">Founder &amp; CEO</div>
+          </div>
+          <p style="font-size:17px;line-height:1.65;color:#98A0AB;margin:0;max-width:60ch;text-wrap:pretty">Before moving fully into data science and enterprise technology, I founded and led ThinkBig, where I spent seven years helping companies use technology to grow and operate more effectively. We developed 360° digital solutions combining strategy, marketing, software, automation, analytics, and technology.</p>
+          <p style="font-size:17px;line-height:1.65;color:#98A0AB;margin:0;max-width:60ch;text-wrap:pretty">Running a company also taught me how to communicate technology to non-technical stakeholders, manage uncertainty, prioritize resources, and make decisions where business and technology intersect.</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:14px">
+        <div data-glow="1" style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;flex:1 1 380px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:8px">
+          <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380">Education</span>
+          <span style="font-size:21px;font-weight:500;letter-spacing:-0.02em;margin-top:8px">Master of Science — Data Science &amp; Analytics</span>
+          <span style="font-size:15px;color:#98A0AB">University of Oklahoma</span>
+        </div>
+        <div data-glow="1" style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;flex:1 1 380px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:8px">
+          <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380">Education</span>
+          <span style="font-size:21px;font-weight:500;letter-spacing:-0.02em;margin-top:8px">Bachelor of Science — Petroleum Engineering</span>
+          <span style="font-size:15px;color:#98A0AB">Universidad Industrial de Santander</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="How I work" style="max-width:1320px;margin:0 auto;padding-left:clamp(20px,5vw,64px);padding-right:clamp(20px,5vw,64px);padding-top:clamp(88px,14vh,160px);padding-bottom:0">
+    <h2 style="font-size:clamp(34px,4.8vw,66px);line-height:1;letter-spacing:-0.045em;font-weight:600;margin:0;max-width:20ch;text-wrap:balance;color:#F2F4F7;margin-bottom:clamp(36px,6vh,56px)">How I work</h2>
+    <div style="display:flex;flex-direction:column">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(10px,4vw,64px);padding:clamp(22px,3vw,32px) 0;border-top:1px solid rgba(255,255,255,0.07);transition:padding-left .3s" style-hover="padding-left:12px">
+        <h3 style="font-size:clamp(22px,2.4vw,30px);line-height:1.1;letter-spacing:-0.03em;font-weight:500;margin:0">Business first</h3>
+        <p style="font-size:16px;line-height:1.6;color:#98A0AB;margin:0;max-width:56ch">Technology should solve a measurable problem, not exist because a particular technology is interesting.</p>
+      </div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(10px,4vw,64px);padding:clamp(22px,3vw,32px) 0;border-top:1px solid rgba(255,255,255,0.07);transition:padding-left .3s" style-hover="padding-left:12px">
+        <h3 style="font-size:clamp(22px,2.4vw,30px);line-height:1.1;letter-spacing:-0.03em;font-weight:500;margin:0">Build, don't just recommend</h3>
+        <p style="font-size:16px;line-height:1.6;color:#98A0AB;margin:0;max-width:56ch">I enjoy going beyond analysis and actually creating the application, pipeline, automation, or system required to solve the problem.</p>
+      </div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(10px,4vw,64px);padding:clamp(22px,3vw,32px) 0;border-top:1px solid rgba(255,255,255,0.07);transition:padding-left .3s" style-hover="padding-left:12px">
+        <h3 style="font-size:clamp(22px,2.4vw,30px);line-height:1.1;letter-spacing:-0.03em;font-weight:500;margin:0">Understand the whole system</h3>
+        <p style="font-size:16px;line-height:1.6;color:#98A0AB;margin:0;max-width:56ch">A database problem can actually be a business-process problem. A reporting problem can actually be a data-model problem. An AI problem can actually be a permissions problem.</p>
+      </div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(10px,4vw,64px);padding:clamp(22px,3vw,32px) 0;border-top:1px solid rgba(255,255,255,0.07);transition:padding-left .3s" style-hover="padding-left:12px">
+        <h3 style="font-size:clamp(22px,2.4vw,30px);line-height:1.1;letter-spacing:-0.03em;font-weight:500;margin:0">Automate repetition</h3>
+        <p style="font-size:16px;line-height:1.6;color:#98A0AB;margin:0;max-width:56ch">If someone is repeatedly downloading a file, modifying a spreadsheet, running the same query, or manually preparing the same report, I immediately start thinking about how that process can disappear.</p>
+      </div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(10px,4vw,64px);padding:clamp(22px,3vw,32px) 0;border-top:1px solid rgba(255,255,255,0.07);transition:padding-left .3s" style-hover="padding-left:12px">
+        <h3 style="font-size:clamp(22px,2.4vw,30px);line-height:1.1;letter-spacing:-0.03em;font-weight:500;margin:0">Keep learning</h3>
+        <p style="font-size:16px;line-height:1.6;color:#98A0AB;margin:0;max-width:56ch">Technology evolves quickly. I enjoy working in areas where I constantly have to understand something new, whether that's cloud architecture, authentication, AI protocols, financial reporting logic, or an unfamiliar industry.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="writing" data-screen-label="Writing" style="max-width:1320px;margin:0 auto;padding-left:clamp(20px,5vw,64px);padding-right:clamp(20px,5vw,64px);padding-top:clamp(88px,14vh,160px);padding-bottom:0;scroll-margin-top:60px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:clamp(28px,5vh,44px)">
+      <h2 style="font-size:clamp(34px,4.8vw,66px);line-height:1;letter-spacing:-0.045em;font-weight:600;margin:0;max-width:20ch;text-wrap:balance;color:#F2F4F7">Writing</h2>
+      <a href="Blog Post.dc.html" style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#98A0AB" style-hover="color:#F2F4F7">Open post template</a>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ posts }}" as="post" hint-placeholder-count="3">
+        <a href="{{ post.href }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:clamp(8px,3vw,48px);padding:24px 0;border-top:1px solid rgba(255,255,255,0.07);align-items:baseline;color:#F2F4F7;transition:color .2s,padding-left .3s" style-hover="color:#93BBFC;padding-left:12px">
+          <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#6B7380">{{ post.date }}</span>
+          <span style="font-size:clamp(19px,2vw,25px);line-height:1.25;letter-spacing:-0.02em;grid-column:span 3">{{ post.title }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="contact" data-screen-label="Contact" style="max-width:1320px;margin:0 auto;padding-left:clamp(20px,5vw,64px);padding-right:clamp(20px,5vw,64px);padding-top:clamp(88px,14vh,160px);padding-bottom:0;padding-bottom:0">
+    <div style="position:relative;border-radius:32px;border:1px solid rgba(255,255,255,0.08);background:radial-gradient(70% 90% at 50% 0%,rgba(59,130,246,0.2),transparent 70%),#08090C;padding:clamp(40px,8vw,110px) clamp(24px,5vw,72px);display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px;overflow:hidden">
+      <h2 style="font-size:clamp(34px,4.8vw,66px);line-height:1;letter-spacing:-0.045em;font-weight:600;margin:0;max-width:20ch;text-wrap:balance;color:#F2F4F7;font-size:clamp(40px,6.6vw,96px);max-width:14ch;text-align:center">Let's turn the problem into a system.</h2>
+      <p style="font-size:17px;line-height:1.65;color:#98A0AB;margin:0;max-width:60ch;text-wrap:pretty;max-width:54ch;text-align:center">Whether the challenge starts with a database, a spreadsheet, an inefficient process, or an idea that hasn't been built yet, I'm interested in figuring out what the right solution looks like.</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
+        <a href="{{ mailHref }}" style="display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;background:#F2F4F7;color:#050607;font-size:15px;font-weight:500;white-space:nowrap;transition:background .2s,transform .2s" style-hover="background:#3B82F6;color:#050607;transform:translateY(-1px)">{{ email }}</a>
+        <a href="{{ githubHref }}" style="display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;border:1px solid rgba(255,255,255,0.12);color:#D5DAE1;font-size:15px;white-space:nowrap;transition:border-color .2s,color .2s" style-hover="border-color:#3B82F6;color:#F2F4F7">GitHub</a>
+        <a href="{{ linkedinHref }}" style="display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;border:1px solid rgba(255,255,255,0.12);color:#D5DAE1;font-size:15px;white-space:nowrap;transition:border-color .2s,color .2s" style-hover="border-color:#3B82F6;color:#F2F4F7">LinkedIn</a>
+        <a href="{{ cvHref }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;border:1px solid rgba(255,255,255,0.12);color:#D5DAE1;font-size:15px;white-space:nowrap;transition:border-color .2s,color .2s" style-hover="border-color:#3B82F6;color:#F2F4F7">CV (PDF)</a>
+      </div>
+    </div>
+    <div aria-hidden="true" style="font-size:clamp(44px,11vw,180px);line-height:0.85;letter-spacing:-0.055em;font-weight:600;white-space:nowrap;text-align:center;margin-top:clamp(48px,8vh,90px);background:linear-gradient(180deg,#1A1F27 0%,#050607 92%);-webkit-background-clip:text;background-clip:text;color:transparent;user-select:none">{{ name }}</div>
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:22px 0 32px;border-top:1px solid rgba(255,255,255,0.07);font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380">
+      <span>© 2026 {{ name }}</span>
+      <span>Built and hosted on GitHub Pages</span>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;name&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Diego Hernández&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identity&quot;},&quot;tagline&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Data. Software. AI. Business.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identity&quot;},&quot;handle&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;github.com/diegoou8&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identity&quot;},&quot;email&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;dhernandez@standardsit.com&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identity&quot;},&quot;linkedinHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://www.linkedin.com/in/diego-thinkbig/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identity&quot;},&quot;cvHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/Diego-Hernandez-CV.pdf&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identity&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#3B82F6&quot;,&quot;options&quot;:[&quot;#3B82F6&quot;,&quot;#22D3EE&quot;,&quot;#A78BFA&quot;,&quot;#F97316&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Look&quot;},&quot;showIntro&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Look&quot;},&quot;enableMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Look&quot;}}">
+class Component extends DCLogic {
+  state = { storyStep: 0, caseId: "p1", q: "", busy: false, res: null, revealN: 0, pct: 0, intro: 0, wIdx: 0, wOp: 1, act: null, heatSrc: "all", tip: -1, bf: 0 };
+  sp = 0; t = 0; els = {}; sysN = null;
+  inputRef = React.createRef();
+  words = ["a dashboard.", "an automated data pipeline.", "a web application.", "an AI system."];
+
+  el(k) {
+    if (this.els[k] && this.els[k].isConnected) return this.els[k];
+    const n = document.querySelector('[data-cv="' + k + '"]');
+    if (n) {
+      this.els[k] = n;
+      if (k === "heat" && !n.__bound) {
+        n.__bound = true;
+        n.addEventListener("mousemove", this.onHeat);
+        n.addEventListener("mouseleave", () => this.setState({ tip: -1 }));
+      }
+    }
+    return n;
+  }
+  accent() { return this.props.accent || "#3B82F6"; }
+  motion() { return this.props.enableMotion !== false && !this.reduced; }
+
+  data() {
+    const P = [
+      { id: "p1", label: "MCP LLM Integrations to DW",
+        body: "Model Context Protocol servers that let language models query, join and write back to the data warehouse under real permissions. Tool schemas, auth, evals and audit trails.",
+        stack: ["Python", "MCP", "Tool calling", "Warehouse", "SQL", "Evals"] },
+      { id: "p2", label: "Custom PDF Reader with LLM",
+        body: "A document pipeline that turns scanned and native PDFs into structured records: layout parsing, OCR fallback, retrieval and a checked extraction step instead of blind generation.",
+        stack: ["OCR", "Layout parsing", "RAG", "FastAPI", "Docker", "Pydantic"] },
+      { id: "p3", label: "P&L and AR Estimation",
+        body: "Probabilistic estimation of receivables collection turned into a P&L and cash forecast, with confidence bands finance actually reads before closing the month.",
+        stack: ["Forecasting", "Pandas", "SQL", "Warehouse", "Statistics"] }
+    ];
+    const S = [
+      ["Python", ["p1", "p2", "p3"]], ["SQL", ["p1", "p3"]], ["Warehouse / dbt", ["p1", "p3"]],
+      ["MCP", ["p1"]], ["Tool calling", ["p1"]], ["Evals", ["p1", "p2"]],
+      ["RAG", ["p2"]], ["OCR", ["p2"]], ["Layout parsing", ["p2"]],
+      ["Forecasting", ["p3"]], ["Pandas", ["p1", "p3"]], ["FastAPI", ["p1", "p2"]],
+      ["Docker", ["p1", "p2", "p3"]], ["Statistics", ["p3"]], ["React / dashboards", ["p1", "p3"]],
+      ["Airflow", ["p1", "p3"]]
+    ];
+    return { P, S };
+  }
+
+
+  cases() {
+    return [
+      { id: "p1", no: "CASE-01", title: "MCP LLM Integrations to DW", lens: "TOOLS · PERMISSIONS · AUDIT",
+        question: "How a model gets warehouse access without losing the audit trail",
+        captions: ["A QUESTION WITH NO SCHEMA BEHIND IT", "TYPED MCP TOOLS REPLACE FREEHAND SQL",
+          "EVERY CALL RUNS UNDER THE CALLER'S PERMISSIONS", "CALLS, ARGUMENTS AND ROW COUNTS LOGGED"],
+        steps: [
+          { no: "STEP 01", title: "The ask", body: "A question arrives in business language. The model has no schema, no permissions and no idea which table is authoritative." },
+          { no: "STEP 02", title: "Tools, not prompts", body: "Each capability becomes a typed MCP tool with an explicit schema. The model composes calls instead of inventing SQL." },
+          { no: "STEP 03", title: "The gate", body: "Every call executes under the caller's own warehouse permissions. Anything out of scope is refused before it touches data." },
+          { no: "STEP 04", title: "Audit", body: "Calls, arguments and row counts are logged. The answer is reproducible, which is what makes it usable in a business." }
+        ] },
+      { id: "p2", no: "CASE-02", title: "Custom PDF Reader with LLM", lens: "LAYOUT · OCR · VALIDATION",
+        question: "How a stack of inconsistent PDFs becomes structured records",
+        captions: ["MIXED NATIVE AND SCANNED PAGES", "LAYOUT PARSING FINDS BLOCKS AND READING ORDER",
+          "OCR FILLS THE GAPS, FLAGGED AS LOWER CONFIDENCE", "FIELDS EXTRACTED AGAINST A SCHEMA, THEN VALIDATED"],
+        steps: [
+          { no: "STEP 01", title: "The document", body: "Native PDFs and scans in the same batch. Same supplier, same form, a different layout every quarter." },
+          { no: "STEP 02", title: "Structure first", body: "Layout parsing finds blocks, tables and reading order before any model sees the page." },
+          { no: "STEP 03", title: "Fallback", body: "Where there is no text layer, OCR fills it in and the region carries a lower confidence score onward." },
+          { no: "STEP 04", title: "Checked extraction", body: "Fields are extracted against a schema and validated. What fails validation goes to review instead of being quietly guessed." }
+        ] },
+      { id: "p3", no: "CASE-03", title: "P&L and AR Estimation", lens: "AGING · PROBABILITY · FORECAST",
+        question: "How an open ledger becomes a forecast",
+        captions: ["RAW LEDGER LINES, UNSORTED", "AGING BUCKETS BY DAYS OUTSTANDING",
+          "COLLECTION PROBABILITY PER BUCKET", "WEIGHTED 12-WEEK CASH FORECAST"],
+        steps: [
+          { no: "STEP 01", title: "Ledger lines", body: "Every invoice, credit note and payment arrives as a row. Thousands a month, with no structure beyond a date, a customer and an amount." },
+          { no: "STEP 02", title: "Aging", body: "Group the open balance by days outstanding. The shape of those buckets is the first honest signal of collection risk." },
+          { no: "STEP 03", title: "Probability", body: "Each open invoice gets a modelled probability of being collected, learned from payment history, terms and customer behaviour." },
+          { no: "STEP 04", title: "Forecast", body: "Weighted by that probability, the open ledger becomes a cash and P&L forecast with a stated confidence band." }
+        ] }
+    ];
+  }
+
+
+  sizeCanvas(c) {
+    const d = Math.min(window.devicePixelRatio || 1, 2);
+    const r = c.getBoundingClientRect();
+    if (r.width < 2 || r.height < 2) return null;
+    const bw = Math.round(r.width * d), bh = Math.round(r.height * d);
+    if (c.width !== bw || c.height !== bh) { c.width = bw; c.height = bh; }
+    return { w: r.width, h: r.height, d };
+  }
+
+
+  observe() {
+    if (this.ro || typeof ResizeObserver === "undefined") return;
+    const a = this.el("sys"), b = this.el("story");
+    if (!a || !b) return;
+    this.ro = new ResizeObserver(() => this.frame());
+    this.ro.observe(a); this.ro.observe(b);
+  }
+
+  onHeat = e => {
+    const g = this.heatG, c = this.el("heat"), A = this.state.act;
+    if (!g || !c || !A) return;
+    const r = c.getBoundingClientRect();
+    const col = Math.floor((e.clientX - r.left - g.L) / g.cell), row = Math.floor((e.clientY - r.top - g.T) / g.cell);
+    let idx = -1;
+    if (col >= 0 && row >= 0 && row < 7) { idx = col * 7 + row - g.off; if (idx < 0 || idx >= A.days.length) idx = -1; }
+    if (idx !== this.state.tip) this.setState({ tip: idx });
+  };
+
+  hubs = [
+    { name: "LLM", note: "Language models connected to real business data.", at: [-0.32, 0.55, 0.3] },
+    { name: "MCP", note: "Typed tools that let AI act under the user's own permissions.", at: [0.32, 0.55, 0.25] },
+    { name: "Data Science", note: "Forecasts and models that hold up in production.", at: [-0.8, 0.1, 0.1] },
+    { name: "RAG", note: "Retrieval over the organization's own documents.", at: [-0.4, 0.45, -0.5] },
+    { name: "Data modeling", note: "One definition behind every number.", at: [0.8, 0.1, -0.1] },
+    { name: "Python", note: "APIs, pipelines and services with FastAPI.", at: [-0.6, -0.1, 0.6] },
+    { name: "Azure", note: "Deployment, identity and secrets in the cloud.", at: [0.6, -0.1, 0.6] },
+    { name: "Power BI", note: "Reporting people actually open.", at: [0.45, 0.4, -0.55] },
+    { name: "Automation", note: "Processes that run without anyone touching them.", at: [0, -0.42, -0.6] }
+  ];
+  hubLinks = [[0,1],[0,3],[1,6],[1,4],[3,2],[2,5],[5,8],[4,7],[8,6],[2,4],[0,2],[3,7],[5,6]];
+
+  brainDef() {
+    if (this.brain) return this.brain;
+    let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const P = [];
+    const shell = (cx, cy, cz, rx, ry, rz, n, gy, side) => {
+      for (let i = 0; i < n; i++) {
+        const u = rnd() * 2 - 1, th = rnd() * 6.2832, s = Math.sqrt(1 - u * u);
+        let x = s * Math.cos(th), y = u, z = s * Math.sin(th);
+        const g = 1 + gy * Math.sin(x * 9 + z * 7) * Math.sin(y * 8 - z * 5);
+        if (side && x * side < 0) x *= 0.55;
+        let Y = cy + y * ry * g;
+        if (side && Y < -0.25) Y = -0.25 + (Y + 0.25) * 0.45;
+        P.push([cx + x * rx * g, Y, cz + z * rz * g]);
+      }
+    };
+    shell(-0.32, 0.05, 0, 0.46, 0.56, 0.82, 240, 0.08, -1);
+    shell(0.32, 0.05, 0, 0.46, 0.56, 0.82, 240, 0.08, 1);
+    const L0 = 0, L1 = 240, R1 = 480;
+    for (let i = 0; i < 22; i++) { const a = -0.15 + (i / 21) * 3.4; P.push([(rnd() - 0.5) * 0.08, 0.02 + Math.sin(a) * 0.32, Math.cos(a) * 0.55]); }
+    shell(0, -0.4, -0.5, 0.46, 0.18, 0.24, 70, 0.05, 0);
+    for (let i = 0; i < 12; i++) { const q = i / 11; P.push([0, -0.38 - q * 0.42, -0.18 - q * 0.12]); }
+    const E = [], seen = {};
+    P.forEach((a, i) => {
+      const nn = P.map((b, j) => [j, (a[0]-b[0])**2 + (a[1]-b[1])**2 + (a[2]-b[2])**2]).filter(x => x[0] !== i).sort((x, y) => x[1] - y[1]).slice(0, 2);
+      nn.forEach(([j, dd]) => { const k = i < j ? i + "_" + j : j + "_" + i; if (!seen[k] && dd < 0.06) { seen[k] = 1; E.push([i, j]); } });
     });
-</script>
+    const near = (i, from, to) => { let bj = -1, bd = 9; for (let j = from; j < to; j++) { const dd = (P[i][0]-P[j][0])**2 + (P[i][1]-P[j][1])**2 + (P[i][2]-P[j][2])**2; if (dd < bd) { bd = dd; bj = j; } } return [bj, bd]; };
+    for (let i = L0; i < L1; i++) { if (P[i][0] < -0.08) continue; const [j, dd] = near(i, L1, R1); if (dd < 0.05) E.push([i, j]); }
+    for (let i = R1; i < R1 + 70; i++) { const [a] = near(i, L0, L1), [b] = near(i, L1, R1); E.push([i, a], [i, b]); }
+    for (let i = R1 + 82; i < P.length; i++) { const [a] = near(i, L0, L1), [b] = near(i, L1, R1); E.push([i, a], [i, b]); }
+    const H = this.hubs.map(hb => { let bi = 0, bd = 9; P.forEach((p, i) => { const dd = (p[0]-hb.at[0])**2 + (p[1]-hb.at[1])**2 + (p[2]-hb.at[2])**2; if (dd < bd) { bd = dd; bi = i; } }); return bi; });
+    this.brain = { P, E, H };
+    return this.brain;
+  }
 
+  drawBrain() {
+    const c = this.el("brain"); if (!c) return;
+    const sz = this.sizeCanvas(c); if (!sz) return;
+    const { w, h, d } = sz, ctx = c.getContext("2d"), B = this.brainDef(), t = this.t;
+    const n = parseInt((this.accent() || "#3B82F6").slice(1), 16), rgb = [(n >> 16) & 255, (n >> 8) & 255, n & 255].join(",");
+    const k = 1 - Math.exp(-(this.dt || 0.016) * 4);
+    this.bpS = (this.bpS || 0) + ((this.bp || 0) - (this.bpS || 0)) * k;
+    this.txS = (this.txS || 0) + ((this.tx || 0) - (this.txS || 0)) * k;
+    this.tyS = (this.tyS || 0) + ((this.ty || 0) - (this.tyS || 0)) * k;
+    const ay = -0.6 + this.bpS * Math.PI * 1.6 + t * 0.1 + this.txS * 0.5, ax = 0.2 + this.tyS * 0.3;
+    const ca = Math.cos(ay), sa = Math.sin(ay), cb = Math.cos(ax), sb = Math.sin(ax);
+    const Rr = Math.min(w, h * 0.85) * 0.4, cx = w / 2, cy = h * 0.47, F = 3.2;
+    const S = B.P.map(p => {
+      const x = p[0] * ca + p[2] * sa, z = -p[0] * sa + p[2] * ca, y = p[1];
+      const y2 = y * cb - z * sb, z2 = y * sb + z * cb, s = F / (F - z2);
+      return [cx + x * s * Rr, cy - y2 * s * Rr, z2];
+    });
+    ctx.setTransform(d, 0, 0, d, 0, 0); ctx.clearRect(0, 0, w, h);
+    const bk = [[], [], []];
+    B.E.forEach(([i, j]) => { const z = (S[i][2] + S[j][2]) / 2; bk[z < -0.3 ? 0 : z < 0.3 ? 1 : 2].push([i, j]); });
+    [0.05, 0.1, 0.2].forEach((al, b) => {
+      ctx.beginPath();
+      bk[b].forEach(([i, j]) => { ctx.moveTo(S[i][0], S[i][1]); ctx.lineTo(S[j][0], S[j][1]); });
+      ctx.strokeStyle = "rgba(201,206,214," + al + ")"; ctx.lineWidth = 1; ctx.stroke();
+    });
+    S.forEach(p => {
+      const a = Math.max(0.08, Math.min(1, (p[2] + 0.9) / 1.8));
+      ctx.fillStyle = "rgba(201,206,214," + (a * 0.75) + ")";
+      const r = 0.6 + a * 1.1; ctx.fillRect(p[0] - r / 2, p[1] - r / 2, r, r);
+    });
+    const NH = this.hubs.length;
+    const rev = i => Math.max(0, Math.min(1, this.bpS * 1.25 * NH - i + 3));
+    const fa = i => Math.max(0, Math.min(1, (S[B.H[i]][2] + 0.5) / 0.7));
+    this.hubLinks.forEach(([a, b], li) => {
+      const A = S[B.H[a]], Bq = S[B.H[b]], al = Math.min(rev(a), rev(b)) * (0.25 + 0.75 * Math.min(fa(a), fa(b)));
+      if (al < 0.02) return;
+      const mx = (A[0] + Bq[0]) / 2, my = (A[1] + Bq[1]) / 2 - 18;
+      ctx.beginPath(); ctx.moveTo(A[0], A[1]); ctx.quadraticCurveTo(mx, my, Bq[0], Bq[1]);
+      ctx.strokeStyle = "rgba(" + rgb + "," + (0.5 * al) + ")"; ctx.lineWidth = 1.2; ctx.stroke();
+      const u = (t * 0.45 + li * 0.173) % 1, v = 1 - u;
+      const px = v * v * A[0] + 2 * v * u * mx + u * u * Bq[0], py = v * v * A[1] + 2 * v * u * my + u * u * Bq[1];
+      ctx.fillStyle = "rgba(" + rgb + "," + al + ")"; ctx.shadowColor = "rgb(" + rgb + ")"; ctx.shadowBlur = 10;
+      ctx.beginPath(); ctx.arc(px, py, 2, 0, 6.2832); ctx.fill(); ctx.shadowBlur = 0;
+    });
+    let best = -1, bz = -9;
+    ctx.font = "500 11px 'Geist Mono', monospace"; ctx.textBaseline = "middle";
+    this.hubs.forEach((hb, i) => {
+      const p = S[B.H[i]], al = rev(i) * (0.2 + 0.8 * fa(i));
+      if (al < 0.02) return;
+      if (rev(i) > 0.9 && p[2] > bz) { bz = p[2]; best = i; }
+      const foc = i === this.state.bf;
+      ctx.fillStyle = "rgba(" + rgb + "," + al + ")"; ctx.shadowColor = "rgb(" + rgb + ")"; ctx.shadowBlur = foc ? 22 : 12;
+      ctx.beginPath(); ctx.arc(p[0], p[1], foc ? 5 : 3.5, 0, 6.2832); ctx.fill(); ctx.shadowBlur = 0;
+      if (fa(i) < 0.15) return;
+      const tw = ctx.measureText(hb.name).width + 18, right = p[0] < cx;
+      let lx = right ? p[0] + 12 : p[0] - 12 - tw; lx = Math.max(6, Math.min(w - tw - 6, lx));
+      const ly = p[1] - 11;
+      ctx.globalAlpha = al;
+      ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(lx, ly, tw, 22, 11); else ctx.rect(lx, ly, tw, 22);
+      ctx.fillStyle = foc ? "rgba(" + rgb + ",0.22)" : "rgba(5,6,7,0.78)"; ctx.fill();
+      ctx.strokeStyle = "rgba(" + rgb + "," + (foc ? 0.9 : 0.35) + ")"; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = foc ? "#F2F4F7" : "#C9CED6"; ctx.textAlign = "left"; ctx.fillText(hb.name, lx + 9, ly + 11.5);
+      ctx.globalAlpha = 1;
+    });
+    if (best >= 0 && best !== this.state.bf && !this.bfLock) {
+      this.bfLock = true; setTimeout(() => { this.bfLock = false; }, 350);
+      this.setState({ bf: best });
+    }
+  }
+
+  drawHeat() {
+    const A = this.state.act; if (!A || !A.days || !A.days.length) return;
+    const c = this.el("heat"); if (!c) return;
+    const sz = this.sizeCanvas(c); if (!sz) return;
+    const { w, h, d } = sz, ctx = c.getContext("2d"), src = this.state.heatSrc;
+    const n = parseInt((this.accent() || "#3B82F6").slice(1), 16), rgb = [(n >> 16) & 255, (n >> 8) & 255, n & 255].join(",");
+    const days = A.days, off = new Date(days[0].d + "T00:00:00").getDay();
+    const weeks = Math.ceil((off + days.length) / 7), L = 30, T = 20;
+    const cell = Math.max(4, Math.min(Math.floor((w - L) / weeks), Math.floor((h - T) / 7)));
+    const gap = cell > 9 ? 3 : 2;
+    this.heatG = { L, T, cell, off };
+    const val = x => src === "all" ? x.p + x.w : src === "p" ? x.p : x.w;
+    let mx = 1; days.forEach(x => { mx = Math.max(mx, val(x)); });
+    ctx.setTransform(d, 0, 0, d, 0, 0); ctx.clearRect(0, 0, w, h);
+    ctx.font = "400 10px 'Geist Mono', monospace"; ctx.fillStyle = "#5A626E"; ctx.textBaseline = "middle"; ctx.textAlign = "left";
+    ["Mon", "Wed", "Fri"].forEach((l, i) => ctx.fillText(l, 0, T + (1 + i * 2) * cell + (cell - gap) / 2));
+    let lastM = -1;
+    days.forEach((x, i) => {
+      const k = i + off, col = Math.floor(k / 7), row = k % 7, px = L + col * cell, py = T + row * cell;
+      if (row === 0 || i === 0) {
+        const dt = new Date(x.d + "T00:00:00"), m = dt.getMonth();
+        if (m !== lastM) { if (i > 7 || dt.getDate() < 8) { ctx.fillStyle = "#5A626E"; ctx.fillText(dt.toLocaleDateString("en-US", { month: "short" }), px, 8); } lastM = m; }
+      }
+      const v = val(x), lv = v === 0 ? 0 : Math.min(4, Math.ceil(v / mx * 4));
+      ctx.fillStyle = lv === 0 ? "#11151B" : "rgba(" + rgb + "," + [0, 0.3, 0.52, 0.76, 1][lv] + ")";
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(px, py, cell - gap, cell - gap, 2); else ctx.rect(px, py, cell - gap, cell - gap);
+      ctx.fill();
+      if (i === this.state.tip) { ctx.strokeStyle = "#F2F4F7"; ctx.lineWidth = 1; ctx.stroke(); }
+    });
+  }
+
+  actVals() {
+    const A = this.state.act, src = this.state.heatSrc;
+    const F = [["all", "All"], ["p", "Personal"], ["w", "Standards I.T."]];
+    const base = { actReady: !!A, actLoading: A === null, actFail: A === false,
+      heatFilters: F.map(([k, l]) => ({ label: l, on: () => this.setState({ heatSrc: k }),
+        bg: k === src ? "#F2F4F7" : "transparent", tone: k === src ? "#050607" : "#98A0AB" })) };
+    if (!A) return Object.assign(base, { total: "", totalLabel: "", liveProjects: [], tipText: "", workPct: "0%", persPct: "0%", otherText: "", syncText: "" });
+    let p = 0, w = 0; A.days.forEach(x => { p += x.p; w += x.w; });
+    const tot = src === "all" ? p + w : src === "p" ? p : w;
+    const fmtD = s => new Date(s + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    const td = A.days[this.state.tip], now = new Date(A.generatedAt).getTime(), WK = 7 * 864e5;
+    return Object.assign(base, {
+      total: tot.toLocaleString("en-US"),
+      totalLabel: src === "all" ? "contributions in the last year" : src === "p" ? "personal contributions in the last year" : "contributions at Standards I.T. in the last year",
+      workPct: Math.round(w / Math.max(1, p + w) * 100) + "%", persPct: Math.round(p / Math.max(1, p + w) * 100) + "%",
+      tipText: td ? fmtD(td.d) + ": " + td.w + " at Standards I.T., " + td.p + " personal" : "Hover a day to see the split",
+      otherText: A.otherWork > 0 ? "Plus " + A.otherWork.toLocaleString("en-US") + " commits to other private repositories in the last 12 weeks, counted but not listed." : "",
+      syncText: A.sample ? "Sample data until the first sync" : "Last synced " + fmtD(A.generatedAt.slice(0, 10)),
+      liveProjects: (A.projects || []).map(pr => {
+        const wk = pr.weekly || [], mx = Math.max(1, ...wk), age = pr.lastActive ? (now - new Date(pr.lastActive).getTime()) / WK : 99;
+        return { cat: pr.category, title: pr.alias, summary: pr.summary, tags: pr.tags || [],
+          last: age < 1 ? "Active this week" : age < 2 ? "Active last week" : pr.lastActive ? "Last active " + new Date(pr.lastActive + "T00:00:00").toLocaleDateString("en-US", { month: "short", year: "numeric" }) : "",
+          bars: wk.map(v => ({ h: Math.max(6, v / mx * 100) + "%", op: v ? 1 : 0.2 })),
+          isPrivate: pr.visibility === "private", isPublic: pr.visibility === "public", href: pr.url || "#",
+          owner: "Private repository" + (pr.org ? " at " + pr.org : ""),
+          hasCase: !!pr.caseId, onCase: () => this.goCase(pr.caseId) };
+      })
+    });
+  }
+
+  componentDidMount() {
+    this.onTilt = e => { this.tx = e.clientX / window.innerWidth - 0.5; this.ty = e.clientY / window.innerHeight - 0.5; };
+    window.addEventListener("mousemove", this.onTilt, { passive: true });
+    fetch("data/activity.json", { cache: "no-store" }).then(r => { if (!r.ok) throw 0; return r.json(); })
+      .then(act => this.setState({ act })).catch(() => this.setState({ act: false }));
+    this.reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (this.props.showIntro === false || this.reduced) this.setState({ intro: 2, pct: 100 });
+    else {
+      const t0 = performance.now();
+      this.it = setInterval(() => {
+        const k = Math.min(1, (performance.now() - t0) / 1300);
+        const pct = Math.round(100 * (1 - Math.pow(1 - k, 3)));
+        this.setState({ pct });
+        if (k >= 1) {
+          clearInterval(this.it);
+          setTimeout(() => this.setState({ intro: 1 }), 150);
+          setTimeout(() => this.setState({ intro: 2 }), 1100);
+        }
+      }, 30);
+    }
+    this.wt = setInterval(() => {
+      this.setState({ wOp: 0 });
+      setTimeout(() => this.setState(s => ({ wIdx: (s.wIdx + 1) % this.words.length, wOp: 1 })), 320);
+    }, 2600);
+    this.onScroll = () => {
+      const sv = document.getElementById("solve");
+      if (sv) this.bp = Math.max(0, Math.min(1, window.scrollY / Math.max(1, sv.offsetTop - window.innerHeight * 0.25)));
+      const el = this.el("steps"); if (!el) return;
+      const r = el.getBoundingClientRect(), vh = window.innerHeight;
+      this.sp = Math.max(0, Math.min(1, (vh * 0.5 - r.top) / Math.max(1, r.height)));
+      const st = this.sp < 0.25 ? 0 : this.sp < 0.5 ? 1 : this.sp < 0.75 ? 2 : 3;
+      if (st !== this.state.storyStep) this.setState({ storyStep: st });
+    };
+    this.onGlow = e => {
+      if (this.gq) return;
+      this.gq = requestAnimationFrame(() => {
+        this.gq = 0;
+        document.querySelectorAll("[data-glow]").forEach(n => {
+          const r = n.getBoundingClientRect();
+          n.style.setProperty("--mx", (e.clientX - r.left) + "px");
+          n.style.setProperty("--my", (e.clientY - r.top) + "px");
+        });
+      });
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    window.addEventListener("mousemove", this.onGlow, { passive: true });
+    this.onScroll();
+    let last = performance.now();
+    const loop = now => {
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      if (this.motion()) this.t += dt;
+      this.dt = dt;
+      this.frame();
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+    setTimeout(() => this.observe(), 100);
+  }
+
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf);
+    clearInterval(this.it); clearInterval(this.wt); clearInterval(this.rv);
+    if (this.ro) this.ro.disconnect();
+    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("mousemove", this.onGlow);
+    window.removeEventListener("mousemove", this.onTilt);
+  }
+
+  componentDidUpdate() { this.observe(); }
+
+  frame() { this.drawBrain(); this.drawSys(); this.drawHeat(); this.drawStory(); }
+
+  sysDef() {
+    if (this.sysN) return this.sysN;
+    const C = [
+      [["xl", "Spreadsheets", "excel|spreadsheet"], ["sql", "SQL Server", "sql|database|warehouse|kpi"], ["pdf", "Documents", "pdf|document|ocr|scan"], ["api", "APIs & CRM", "api|crm|third-party|platform"]],
+      [["etl", "Pipelines", "pipeline|etl|schedul|refresh|load"], ["dm", "Data model", "data model|sql model|definition|dax|governed"], ["mcp", "MCP tools", "mcp|tool"], ["auth", "Auth & audit", "oauth|permission|security|audit|identity"]],
+      [["llm", "LLM", "llm|ai|assistant|language|gpt|claude"], ["ml", "Forecasting", "forecast|predict|probabil|statistic"], ["val", "Validation", "validat|reconcil|check|review"]],
+      [["bi", "Power BI", "power bi|dashboard|report|kpi"], ["app", "Web app", "fastapi|angular|app|service|queue|portal"], ["chat", "Assistant", "assistant|natural.language|plain language|chat"]]
+    ];
+    const defs = ["sql", "etl", "val", "app"];
+    this.sysN = C.map((col, ci) => col.map(([id, label, kw]) => ({ id, label, col: ci, re: new RegExp("\\b(" + kw + ")", "i"), l: 0, def: defs[ci] === id })));
+    return this.sysN;
+  }
+
+  litTarget() {
+    const cols = this.sysDef(), s = this.state, res = s.res, out = {};
+    if (!res) return out;
+    const text = [res.q, res.diagnosis, (res.stack || []).join(" "), (res.steps || []).map(x => x.text).join(" ")].join(" ");
+    const gate = [1, 2, 3, 3];
+    cols.forEach((col, ci) => {
+      if (s.revealN < gate[ci]) return;
+      let hit = col.filter(n => n.re.test(text));
+      if (!hit.length) hit = col.filter(n => n.def);
+      hit.forEach(n => out[n.id] = 1);
+    });
+    return out;
+  }
+
+  drawSys() {
+    const c = this.el("sys"); if (!c) return;
+    const sz = this.sizeCanvas(c); if (!sz) return;
+    const { w, h, d } = sz, ctx = c.getContext("2d"), ac = this.accent(), t = this.t;
+    const cols = this.sysDef(), tg = this.litTarget(), busy = this.state.busy;
+    const k = 1 - Math.exp(-(this.dt || 0.016) * 5);
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    const small = w < 560, fs = small ? 10 : 12, ph = small ? 26 : 32;
+    const padX = small ? 14 : 28, top = small ? 46 : 58, bot = 24;
+    const colW = (w - padX * 2) / 4;
+    ctx.font = "500 " + fs + "px 'Geist Mono', monospace";
+    cols.forEach((col, ci) => col.forEach((n, j) => {
+      n.l += ((tg[n.id] || 0) - n.l) * k;
+      n.x = padX + colW * (ci + 0.5);
+      n.y = top + (h - top - bot) * (j + 0.5) / col.length;
+      n.txt = small ? ({ xl: "Sheets", sql: "SQL", pdf: "Docs", api: "APIs", etl: "ETL", dm: "Model", mcp: "MCP", auth: "Auth", llm: "LLM", ml: "Forecast", val: "Checks", bi: "BI", app: "App", chat: "Chat" })[n.id] : n.label;
+      n.w = Math.min(colW * 0.74, ctx.measureText(n.txt).width + (small ? 16 : 26));
+    }));
+    ["Sources", "Process", "Intelligence", "Delivery"].forEach((lab, ci) => {
+      const any = Math.max.apply(null, cols[ci].map(n => n.l));
+      ctx.fillStyle = any > 0.3 ? ac : "#4A525D";
+      ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.font = "400 " + (small ? 10 : 11) + "px 'Geist Mono', monospace";
+      ctx.fillText(lab, padX + colW * (ci + 0.5), small ? 22 : 28);
+    });
+    let ei = 0;
+    for (let ci = 0; ci < 3; ci++) {
+      cols[ci].forEach(a => cols[ci + 1].forEach(b => {
+        ei++;
+        const x0 = a.x + a.w / 2, y0 = a.y, x3 = b.x - b.w / 2, y3 = b.y, mx = (x0 + x3) / 2;
+        const lit = Math.min(a.l, b.l);
+        ctx.beginPath(); ctx.moveTo(x0, y0); ctx.bezierCurveTo(mx, y0, mx, y3, x3, y3);
+        ctx.strokeStyle = lit > 0.02 ? ac : "#FFFFFF";
+        ctx.globalAlpha = 0.045 + lit * 0.55 + (busy ? 0.05 + 0.05 * Math.sin(t * 6 + ei) : 0);
+        ctx.lineWidth = 1 + lit * 0.6;
+        if (lit > 0.3) { ctx.shadowColor = ac; ctx.shadowBlur = 8 * lit; }
+        ctx.stroke(); ctx.shadowBlur = 0;
+        const amb = !this.state.res && !busy && (ei % 7 === Math.floor(t * 0.6) % 7);
+        const pa = lit > 0.05 ? lit : busy ? 0.35 : amb ? 0.35 : 0;
+        if (pa > 0) {
+          const speed = busy ? 0.9 : 0.35, n = lit > 0.05 ? 2 : 1;
+          for (let q = 0; q < n; q++) {
+            const u = (t * speed + ei * 0.137 + q / n) % 1, v = 1 - u;
+            const px = v*v*v*x0 + 3*v*v*u*mx + 3*v*u*u*mx + u*u*u*x3;
+            const py = v*v*v*y0 + 3*v*v*u*y0 + 3*v*u*u*y3 + u*u*u*y3;
+            ctx.globalAlpha = pa; ctx.fillStyle = lit > 0.05 || busy ? ac : "#C9CED6";
+            ctx.shadowColor = ac; ctx.shadowBlur = 10;
+            ctx.beginPath(); ctx.arc(px, py, 2.2, 0, 6.2832); ctx.fill();
+            ctx.shadowBlur = 0;
+          }
+        }
+      }));
+    }
+    ctx.globalAlpha = 1;
+    ctx.font = "500 " + fs + "px 'Geist Mono', monospace"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    cols.forEach(col => col.forEach(n => {
+      const x = n.x - n.w / 2, y = n.y - ph / 2, r = ph / 2;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(x, y, n.w, ph, r); else ctx.rect(x, y, n.w, ph);
+      ctx.fillStyle = n.l > 0.05 ? "rgba(59,130,246," + (0.08 + n.l * 0.12) + ")" : "#0C0E12";
+      if (n.l > 0.2) { ctx.shadowColor = ac; ctx.shadowBlur = 22 * n.l; }
+      ctx.fill(); ctx.shadowBlur = 0;
+      ctx.strokeStyle = n.l > 0.05 ? ac : "rgba(255,255,255,0.12)";
+      ctx.globalAlpha = n.l > 0.05 ? 0.4 + n.l * 0.6 : 1; ctx.lineWidth = 1; ctx.stroke();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = n.l > 0.4 ? "#F2F4F7" : "#8A929D";
+      ctx.fillText(n.txt, n.x, n.y + 0.5);
+    }));
+  }
+
+  drawStory() {
+    const c = this.el("story"); if (!c) return;
+    const sz = this.sizeCanvas(c); if (!sz) return;
+    const { w, h, d } = sz, ctx = c.getContext("2d");
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    const pad = Math.max(26, w * 0.09), bw = w - pad * 2, bh = h - pad * 2.1;
+    ctx.strokeStyle = "#151A20"; ctx.lineWidth = 1;
+    for (let i = 0; i <= 4; i++) {
+      const y = pad + (bh / 4) * i;
+      ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(pad + bw, y); ctx.stroke();
+    }
+    const args = [ctx, pad, bw, bh, this.sp, this.accent(), w, h];
+    if (this.state.caseId === "p1") this.drawMcp.apply(this, args);
+    else if (this.state.caseId === "p2") this.drawPdf.apply(this, args);
+    else this.drawAr.apply(this, args);
+    ctx.globalAlpha = 1;
+  }
+
+  ease(x) { return x < 0 ? 0 : x > 1 ? 1 : x * x * (3 - 2 * x); }
+
+  mono(ctx, size) { ctx.font = "400 " + (size || 10) + "px 'Geist Mono', monospace"; }
+
+  drawAr(ctx, pad, bw, bh, p, ac) {
+    const ease = this.ease;
+    const collapse = ease((p - 0.06) / 0.22);
+    const buckets = [0.74, 0.52, 0.36, 0.22, 0.12], probs = [0.96, 0.88, 0.7, 0.45, 0.22];
+    const nb = buckets.length, slot = bw / nb;
+    for (let i = 0; i < 150; i++) {
+      const g = ((i * 2654435761) % 1000) / 1000, hh = ((i * 40503) % 997) / 997;
+      const bi = Math.min(nb - 1, Math.floor(g * g * nb));
+      const fx = pad + g * bw, fy = pad + hh * bh;
+      const tx = pad + slot * bi + slot * 0.5 + (hh - 0.5) * slot * 0.5;
+      const ty = pad + bh - hh * buckets[bi] * bh;
+      ctx.globalAlpha = 0.55 * (1 - collapse) + 0.08;
+      ctx.fillStyle = "#7C838D";
+      ctx.beginPath();
+      ctx.arc(fx + (tx - fx) * collapse, fy + (ty - fy) * collapse, 1.7, 0, 6.2832); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    const barA = ease((p - 0.1) / 0.22), probA = ease((p - 0.45) / 0.17), lineA = ease((p - 0.7) / 0.18);
+    buckets.forEach((v, i) => {
+      const x = pad + slot * i + slot * 0.16, wd = slot * 0.68, th = v * bh * barA;
+      ctx.globalAlpha = 0.5 * barA * (1 - lineA * 0.55);
+      ctx.fillStyle = "#2A313A"; ctx.fillRect(x, pad + bh - th, wd, th);
+      if (probA > 0) {
+        ctx.globalAlpha = probA * (1 - lineA * 0.4);
+        ctx.fillStyle = ac;
+        const ph = th * probs[i]; ctx.fillRect(x, pad + bh - ph, wd, ph);
+      }
+      ctx.globalAlpha = 0.9 * barA; ctx.fillStyle = "#7C838D";
+      this.mono(ctx, 10); ctx.textBaseline = "top"; ctx.textAlign = "center";
+      ctx.fillText(["0-30", "31-60", "61-90", "91-120", "120+"][i], x + wd / 2, pad + bh + 9);
+    });
+    ctx.textAlign = "left";
+    if (lineA > 0) {
+      const pts = [];
+      for (let i = 0; i <= 12; i++) {
+        const f = i / 12;
+        const v = 0.22 + 0.5 * (1 - Math.exp(-f * 2.4)) + Math.sin(f * 7.5) * 0.03;
+        pts.push([pad + f * bw, pad + bh - v * bh]);
+      }
+      ctx.globalAlpha = lineA * 0.16; ctx.fillStyle = ac;
+      ctx.beginPath();
+      pts.forEach((q, i) => i ? ctx.lineTo(q[0], q[1] - 14 - i) : ctx.moveTo(q[0], q[1] - 14));
+      for (let i = pts.length - 1; i >= 0; i--) ctx.lineTo(pts[i][0], pts[i][1] + 14 + i);
+      ctx.closePath(); ctx.fill();
+      ctx.globalAlpha = lineA; ctx.strokeStyle = ac; ctx.lineWidth = 2;
+      ctx.beginPath(); pts.forEach((q, i) => i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1])); ctx.stroke();
+    }
+  }
+
+  drawMcp(ctx, pad, bw, bh, p, ac) {
+    const ease = this.ease, t = this.motion() ? this.t : 0;
+    const colW = bw * (bw < 480 ? 0.31 : 0.26), gap = (bw - colW * 3) / 2;
+    const cols = ["MODEL", "MCP TOOLS", "WAREHOUSE"];
+    const appear = [ease((p - 0.02) / 0.18), ease((p - 0.28) / 0.18), ease((p - 0.28) / 0.18)];
+    this.mono(ctx, 10); ctx.textBaseline = "alphabetic"; ctx.textAlign = "left";
+    cols.forEach((label, i) => {
+      const x = pad + i * (colW + gap), a = appear[i];
+      ctx.globalAlpha = 0.35 + a * 0.65;
+      ctx.strokeStyle = a > 0.5 ? "#2A313A" : "#1C2026"; ctx.lineWidth = 1;
+      ctx.strokeRect(x, pad, colW, bh * 0.82);
+      ctx.fillStyle = "#7C838D"; ctx.fillText(label, x, pad - 8);
+    });
+    const rows = ["query_tables", "run_sql", "describe", "write_back", "list_metrics"];
+    const toolsA = ease((p - 0.28) / 0.2), gateA = ease((p - 0.5) / 0.18), auditA = ease((p - 0.74) / 0.18);
+    const tx = pad + colW + gap, rowH = Math.min(26, (bh * 0.62) / rows.length);
+    let fs = 10;
+    this.mono(ctx, fs);
+    const widest = () => Math.max(...rows.map(r => ctx.measureText(r).width));
+    while (fs > 7 && widest() > colW - 16 - 12 - 12) { fs -= 0.5; this.mono(ctx, fs); }
+    const nameMax = widest(), allowW = ctx.measureText("ALLOW").width;
+    const mode = colW - 16 - 12 - nameMax >= allowW + 14 ? "text" : colW - 16 - 12 - nameMax >= 12 ? "dot" : "none";
+    rows.forEach((r, i) => {
+      const y = pad + 20 + i * rowH, allowed = i !== 3;
+      ctx.globalAlpha = toolsA;
+      ctx.fillStyle = allowed && gateA > 0.4 ? "rgba(59,130,246,0.1)" : "#101419";
+      ctx.fillRect(tx + 8, y, colW - 16, rowH - 6);
+      ctx.fillStyle = gateA > 0.4 ? (allowed ? ac : "#4A525C") : "#7C838D";
+      this.mono(ctx, fs);
+      ctx.fillText(r, tx + 14, y + rowH * 0.52);
+      if (gateA > 0.4) {
+        ctx.fillStyle = allowed ? ac : "#4A525C"; ctx.textAlign = "right";
+        ctx.globalAlpha = toolsA * gateA;
+        const lab = allowed ? "ALLOW" : "DENY";
+        const cy0 = y + (rowH - 6) / 2;
+        if (mode === "text") {
+          ctx.fillText(lab, tx + colW - 14, y + rowH * 0.52);
+        } else if (mode === "dot") {
+          const dx = tx + colW - 8 - 7;
+          ctx.beginPath(); ctx.arc(dx, cy0, 3.2, 0, 6.2832);
+          if (allowed) ctx.fill(); else { ctx.strokeStyle = "#4A525C"; ctx.lineWidth = 1.2; ctx.stroke(); }
+        }
+        ctx.textAlign = "left";
+      }
+    });
+    if (gateA > 0) {
+      const y0 = pad + 20 + rowH * 0.5, x0 = pad + colW, x1 = tx, x2 = tx + colW, x3 = pad + colW * 2 + gap * 2;
+      ctx.globalAlpha = gateA; ctx.strokeStyle = ac; ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y0); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x2, y0); ctx.lineTo(x3, y0); ctx.stroke();
+      const ph = (t * 0.35) % 1;
+      ctx.fillStyle = ac; ctx.globalAlpha = gateA;
+      ctx.beginPath(); ctx.arc(x0 + (x1 - x0) * ph, y0, 2.6, 0, 6.2832); ctx.fill();
+      ctx.beginPath(); ctx.arc(x2 + (x3 - x2) * ph, y0, 2.6, 0, 6.2832); ctx.fill();
+    }
+    const wx = pad + colW * 2 + gap * 2;
+    ctx.globalAlpha = appear[2];
+    for (let i = 0; i < 5; i++) {
+      const y = pad + 20 + i * rowH;
+      ctx.fillStyle = "#171C22"; ctx.fillRect(wx + 8, y, colW - 16, rowH - 6);
+      ctx.fillStyle = "#7C838D"; this.mono(ctx, 9);
+      ctx.fillText(["fct_orders", "dim_customer", "fct_ar", "dim_date", "fct_gl"][i], wx + 14, y + rowH * 0.52);
+    }
+    if (auditA > 0) {
+      ctx.globalAlpha = auditA; this.mono(ctx, 9); ctx.fillStyle = "#7C838D";
+      const lines = ["12:04:11  run_sql        rows=1 842   caller=dh", "12:04:12  describe       ok            caller=dh", "12:04:12  write_back     denied        caller=dh"];
+      lines.forEach((l, i) => ctx.fillText(l, pad, pad + bh * 0.9 + i * 13));
+    }
+  }
+
+  drawPdf(ctx, pad, bw, bh, p, ac) {
+    const ease = this.ease;
+    const pageW = bw * 0.46, pageH = bh * 0.86, px = pad, py = pad;
+    ctx.globalAlpha = 1; ctx.strokeStyle = "#2A313A"; ctx.lineWidth = 1;
+    ctx.strokeRect(px, py, pageW, pageH);
+    const scanA = 1 - ease((p - 0.2) / 0.2);
+    for (let i = 0; i < 240; i++) {
+      const g = ((i * 2654435761) % 1000) / 1000, hh = ((i * 40503) % 997) / 997;
+      ctx.globalAlpha = 0.3 * scanA;
+      ctx.fillStyle = "#7C838D";
+      ctx.fillRect(px + 14 + g * (pageW - 28), py + 14 + hh * (pageH - 28), 2 + g * 12, 1.4);
+    }
+    const blocks = [[0.08, 0.06, 0.55, 0.07], [0.08, 0.17, 0.84, 0.04], [0.08, 0.24, 0.84, 0.04],
+      [0.08, 0.36, 0.4, 0.2], [0.54, 0.36, 0.38, 0.2], [0.08, 0.62, 0.84, 0.24]];
+    const blockA = ease((p - 0.22) / 0.2), ocrA = ease((p - 0.46) / 0.18), fieldA = ease((p - 0.7) / 0.2);
+    blocks.forEach((b, i) => {
+      const x = px + 10 + b[0] * (pageW - 20), y = py + 10 + b[1] * (pageH - 20);
+      const wd = b[2] * (pageW - 20), ht = b[3] * (pageH - 20);
+      const ocr = i === 5;
+      ctx.globalAlpha = blockA;
+      ctx.fillStyle = ocr && ocrA > 0.3 ? "rgba(59,130,246,0.08)" : "#101419";
+      ctx.fillRect(x, y, wd, ht);
+      ctx.strokeStyle = ocr && ocrA > 0.3 ? ac : "#242A32";
+      ctx.strokeRect(x, y, wd, ht);
+      if (ocr && ocrA > 0.3) {
+        ctx.globalAlpha = ocrA; ctx.strokeStyle = ac; ctx.lineWidth = 1;
+        for (let s = 0; s < wd + ht; s += 9) {
+          ctx.globalAlpha = ocrA * 0.25;
+          ctx.beginPath(); ctx.moveTo(x + Math.min(s, wd), y + Math.max(0, s - wd));
+          ctx.lineTo(x + Math.max(0, s - ht), y + Math.min(s, ht)); ctx.stroke();
+        }
+        ctx.globalAlpha = ocrA; ctx.fillStyle = ac; this.mono(ctx, 9);
+        ctx.textBaseline = "alphabetic"; ctx.fillText("OCR · CONF 0.71", x + 4, y - 5);
+      }
+    });
+    const fx = px + pageW + bw * 0.08;
+    const fields = [["invoice_no", "INV-99214"], ["supplier", "matched"], ["issue_date", "2026-08-31"],
+      ["due_date", "2026-09-30"], ["net_total", "valid"], ["vat", "valid"], ["line_items", "12 rows"]];
+    this.mono(ctx, 10); ctx.textBaseline = "middle";
+    fields.forEach((f, i) => {
+      const y = py + 16 + i * Math.min(30, (bh * 0.8) / fields.length);
+      ctx.globalAlpha = fieldA;
+      ctx.strokeStyle = "#1C2026"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(fx, y + 12); ctx.lineTo(fx + bw * 0.4, y + 12); ctx.stroke();
+      ctx.fillStyle = "#7C838D"; ctx.textAlign = "left"; ctx.fillText(f[0], fx, y);
+      ctx.fillStyle = ac; ctx.textAlign = "right"; ctx.fillText(f[1], fx + bw * 0.4, y);
+      ctx.textAlign = "left";
+    });
+    ctx.textBaseline = "alphabetic";
+  }
+
+  presets() {
+    return [
+      { q: "Every Monday someone rebuilds the same report in Excel.", a: {
+        diagnosis: "This is a repetition problem before it is a reporting problem.",
+        steps: [
+          { phase: "Understand", text: "Trace every number in the report back to its source system and note who touches it, and when." },
+          { phase: "Simplify", text: "Move the spreadsheet logic into one tested SQL model so the calculation lives in a single place." },
+          { phase: "Build", text: "A scheduled pipeline feeds a Power BI dataset. The report refreshes itself before anyone opens it on Monday." }],
+        stack: ["SQL Server", "Python", "Azure", "Power BI", "DAX"],
+        outcome: "The hours spent rebuilding the report go back to reading it." } },
+      { q: "We want an AI assistant on our data, but security keeps saying no.", a: {
+        diagnosis: "An AI problem can actually be a permissions problem.",
+        steps: [
+          { phase: "Understand", text: "Map data classifications and who is allowed to see what, before choosing any model." },
+          { phase: "Simplify", text: "Expose a small set of typed MCP tools instead of giving the model raw database access." },
+          { phase: "Build", text: "OAuth 2.1 with PKCE, every call runs under the user's own identity, and every call is logged." }],
+        stack: ["MCP", "OAuth 2.1", "FastAPI", "Azure", "SQL Server"],
+        outcome: "Security gets an audit trail. Users get answers in plain language." } },
+      { q: "Finance and operations report different numbers for the same KPI.", a: {
+        diagnosis: "A reporting problem can actually be a data-model problem.",
+        steps: [
+          { phase: "Understand", text: "Sit with both teams and write down how each one defines the KPI, line by line." },
+          { phase: "Simplify", text: "Agree on one definition and build it once, in a governed data model both reports read from." },
+          { phase: "Build", text: "A reconciliation framework checks the model against source totals on every load and flags drift." }],
+        stack: ["SQL", "Data modeling", "Power BI", "Reconciliation"],
+        outcome: "One number, with a check that proves it." } },
+      { q: "Our team keys data from hundreds of PDFs by hand.", a: {
+        diagnosis: "This is a document-structure problem that looks like a data-entry problem.",
+        steps: [
+          { phase: "Understand", text: "Sort the documents by layout and find the fields that actually drive decisions." },
+          { phase: "Simplify", text: "Parse layout first, OCR only where there is no text layer, and extract against a fixed schema." },
+          { phase: "Build", text: "An extraction service validates every field. Anything that fails goes to a review queue, not the database." }],
+        stack: ["Python", "FastAPI", "OCR", "LLM", "Docker"],
+        outcome: "People review exceptions instead of typing every page." } }
+    ];
+  }
+
+  show(res) {
+    clearInterval(this.rv);
+    this.setState({ q: res.q, busy: false, res, revealN: 0 });
+    this.rv = setInterval(() => {
+      if (this.state.revealN >= 4) { clearInterval(this.rv); return; }
+      this.setState(s => ({ revealN: s.revealN + 1 }));
+    }, 380);
+  }
+
+  runProblem(q, preset) {
+    q = (q || "").trim();
+    if (!q || this.state.busy) return;
+    if (preset) return this.show(Object.assign({ q }, preset.a));
+    const fallback = { q, diagnosis: "Every problem like this starts with the same three questions.",
+      steps: [
+        { phase: "Understand", text: "Map where the data lives, who touches it, and where the time actually goes." },
+        { phase: "Simplify", text: "Remove the steps that exist only because of the current tools." },
+        { phase: "Build", text: "Ship the smallest system that removes the manual work, then extend it." }],
+      stack: ["Python", "SQL", "Azure"],
+      outcome: "Send me the details and I'll reply with a concrete plan." };
+    if (!window.claude || !window.claude.complete) return this.show(fallback);
+    this.setState({ q, busy: true, res: null, revealN: 0 });
+    const system = "You write on behalf of Diego Hernández, a fullstack AI and data engineer (Python, FastAPI, Angular, SQL Server, Azure, Docker, Power BI, LLMs, MCP, RAG, OAuth 2.1). A visitor describes a business problem. Reply ONLY with JSON: {\"diagnosis\": one sentence naming what kind of problem it really is, \"steps\": [{\"phase\":\"Understand\",\"text\":\"...\"},{\"phase\":\"Simplify\",\"text\":\"...\"},{\"phase\":\"Build\",\"text\":\"...\"}], \"stack\": [3 to 6 technologies], \"outcome\": one sentence on the measurable result}. Each text under 25 words, plain, specific, first person, no hype.";
+    window.claude.complete({ system, max_tokens: 600, messages: [{ role: "user", content: q }] }).then(t => {
+      const j = JSON.parse((t.match(/\{[\s\S]*\}/) || [""])[0]);
+      if (!j.steps || j.steps.length < 3) throw new Error("bad");
+      this.show({ q, diagnosis: j.diagnosis, steps: j.steps.slice(0, 3), stack: (j.stack || []).slice(0, 6), outcome: j.outcome || "" });
+    }).catch(() => this.show(fallback));
+  }
+
+
+  consoleVals(email) {
+    const s = this.state, res = s.res;
+    return {
+      presets: this.presets().map(p => {
+        const on = res && res.q === p.q;
+        return { label: p.q, on: () => this.runProblem(p.q, p),
+          tone: on ? "#F2F4F7" : "#98A0AB", bd: on ? "#3B82F6" : "rgba(255,255,255,0.09)", bg: on ? "rgba(59,130,246,0.12)" : "transparent" };
+      }),
+      q: s.q,
+      inputRef: this.inputRef,
+      onQ: e => this.setState({ q: e.target.value }),
+      onRun: () => this.runProblem(this.state.q),
+      onKey: e => { if (e.key === "Enter") this.runProblem(this.state.q); },
+      runLabel: s.busy ? "Working…" : "Turn it into a system",
+      modeLabel: window.claude && window.claude.complete ? "live" : "examples",
+      showEmpty: !s.busy && !res, showBusy: s.busy, showRes: !s.busy && !!res,
+      resQ: res ? res.q : "", diagnosis: res ? res.diagnosis : "",
+      resSteps: res ? res.steps.map((x, i) => ({ no: "0" + (i + 1), phase: x.phase, text: x.text,
+        op: s.revealN > i ? 1 : 0, ty: s.revealN > i ? "0px" : "8px" })) : [],
+      resStack: res ? res.stack : [], outcome: res ? res.outcome : "",
+      outcomeOp: s.revealN > 3 ? 1 : 0,
+      talkHref: "mailto:" + email + "?subject=" + encodeURIComponent("A problem for you: " + (res ? res.q : ""))
+    };
+  }
+
+  goCase(id) {
+    this.setState({ caseId: id });
+    const el = document.getElementById("cases");
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 60, behavior: this.reduced ? "auto" : "smooth" });
+  }
+
+  renderVals() {
+    const { P } = this.data();
+    const cases = this.cases();
+    const active = cases.find(c => c.id === this.state.caseId) || cases[0];
+    const email = this.props.email || "dhernandez@standardsit.com";
+    const nm = (this.props.name || "Diego Hernández").trim();
+    const handle = this.props.handle || "github.com/diegoou8";
+    const kinds = { p1: "Enterprise AI", p2: "Document intelligence", p3: "Financial forecasting" };
+    const tabNames = { p1: "MCP LLM Integrations to DW", p2: "Custom PDF Reader with LLM", p3: "P&L and AR Estimation" };
+    const intro = this.state.intro;
+    return {
+      ...this.consoleVals(email),
+      name: nm,
+      tagline: this.props.tagline || "Data. Software. AI. Business.",
+      githubHref: "https://" + handle,
+      email, mailHref: "mailto:" + email,
+      cvHref: this.props.cvHref || "assets/Diego-Hernandez-CV.pdf",
+      linkedinHref: this.props.linkedinHref || "https://www.linkedin.com/in/diego-thinkbig/",
+      introShow: intro < 2, introY: intro >= 1 ? "-100%" : "0%",
+      pct: this.state.pct, pctW: this.state.pct + "%",
+      introMsg: this.state.pct < 100 ? "Connecting the systems" : "Ready",
+      word: this.words[this.state.wIdx], wOp: this.state.wOp, wY: this.state.wOp ? "0px" : "10px",
+      ...this.actVals(),
+      brainName: this.hubs[this.state.bf].name, brainNote: this.hubs[this.state.bf].note,
+      brainIdx: "0" + (this.state.bf + 1) + " / 0" + this.hubs.length,
+      tabs: cases.map(c => {
+        const on = c.id === this.state.caseId;
+        return { label: tabNames[c.id], on: () => this.setState({ caseId: c.id }),
+          bg: on ? "#F2F4F7" : "transparent", tone: on ? "#050607" : "#98A0AB" };
+      }),
+      activeCase: { question: active.question, steps: active.steps.map((s, i) => ({ no: "0" + (i + 1), title: s.title, body: s.body })) },
+      storyCaption: active.captions[this.state.storyStep],
+      posts: [
+        { date: "Sep 2026", title: "Giving a language model warehouse access without losing the audit trail", href: "Blog Post.dc.html" },
+        { date: "Jun 2026", title: "Why PDF extraction fails, and what to check instead of the output", href: "Blog Post.dc.html" },
+        { date: "Mar 2026", title: "Forecasting receivables when the data is mostly silence", href: "Blog Post.dc.html" }
+      ]
+    };
+  }
+}
+</script>
+</body>
 </html>

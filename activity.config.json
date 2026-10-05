@@ -34,7 +34,7 @@
       "category": "Personal",
       "visibility": "public",
       "alwaysShow": true,
-      "repos": ["sha256:REPLACE_WITH_HASH"],
+      "repos": ["sha256:592b7f215fe3c8f7"],
       "summary": "This site. A static GitHub Pages build with a nightly activity sync.",
       "tags": ["JavaScript", "GitHub Actions"]
     }
