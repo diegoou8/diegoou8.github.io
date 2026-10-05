@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #07080A; }
+  * { box-sizing: border-box; }
+  ::selection { background: #3B82F6; color: #07080A; }
+  a { color: #3B82F6; text-decoration: none; }
+  a:hover { color: #93BBFC; }
+</style>
+</helmet>
+<div style="background:#07080A;color:#E8EAED;font-family:'IBM Plex Sans',system-ui,sans-serif;min-height:100vh">
+
+  <header style="position:sticky;top:0;z-index:5;background:rgba(7,8,10,0.9);backdrop-filter:blur(8px);border-bottom:1px solid #1C2026">
+    <div style="max-width:1100px;margin:0 auto;padding:18px clamp(20px,5vw,48px);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.12em">
+      <a href="Portfolio.dc.html" style="color:#9AA1AA">← {{ author }}</a>
+      <span style="color:#7C838D">{{ kicker }}</span>
+    </div>
+    <div style="height:2px;background:#1C2026">
+      <div style="height:2px;background:#3B82F6;width:{{ progress }}"></div>
+    </div>
+  </header>
+
+  <article style="max-width:1100px;margin:0 auto;padding:clamp(48px,10vh,110px) clamp(20px,5vw,48px) 0">
+    <div style="display:flex;gap:14px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:#7C838D;margin-bottom:32px">
+      <span>{{ date }}</span>
+      <span>·</span>
+      <span>{{ readTime }}</span>
+      <span>·</span>
+      <span>{{ topic }}</span>
+    </div>
+
+    <h1 style="font-size:clamp(34px,6vw,76px);line-height:1.02;letter-spacing:-0.04em;font-weight:600;margin:0 0 32px;max-width:22ch;text-wrap:pretty">{{ title }}</h1>
+    <p style="font-size:clamp(19px,2.2vw,26px);line-height:1.45;color:#C3C8CE;margin:0 0 clamp(44px,7vh,80px);max-width:60ch;text-wrap:pretty">{{ standfirst }}</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(24px,5vw,72px);align-items:start">
+
+      <aside style="position:sticky;top:96px;display:flex;flex-direction:column;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;padding-top:6px">
+        <span style="color:#7C838D">ON THIS PAGE</span>
+        <sc-for list="{{ toc }}" as="item" hint-placeholder-count="4">
+          <a href="{{ item.href }}" style="color:#9AA1AA;border-left:1px solid #1C2026;padding-left:12px">{{ item.label }}</a>
+        </sc-for>
+        <div style="height:1px;background:#1C2026;margin:10px 0"></div>
+        <a href="{{ repoHref }}" style="border-left:1px solid #1C2026;padding-left:12px">CODE FOR THIS POST →</a>
+      </aside>
+
+      <div style="grid-column:span 2;min-width:0;max-width:70ch;display:flex;flex-direction:column;gap:26px;font-size:18px;line-height:1.7;color:#C3C8CE">
+
+        <h2 id="s1" style="font-size:clamp(23px,2.6vw,32px);line-height:1.2;letter-spacing:-0.025em;font-weight:500;color:#E8EAED;margin:clamp(16px,3vh,32px) 0 0">The problem, stated plainly</h2>
+        <p style="margin:0;text-wrap:pretty">Open with the situation as the reader recognises it. One paragraph, no preamble, no promise of what the post will cover. If the problem is not familiar in the first four lines, nothing after it will land.</p>
+        <p style="margin:0;text-wrap:pretty">A second paragraph for the constraint that makes the obvious answer wrong. This is the paragraph most posts skip, and it is the reason most posts read as generic.</p>
+
+        <figure style="margin:clamp(12px,3vh,28px) 0;display:flex;flex-direction:column;gap:12px">
+          <svg viewBox="0 0 800 360" style="width:100%;height:auto;display:block;background:#0A0C0E;border:1px solid #1C2026">
+            <defs>
+              <pattern id="bpstripe" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                <rect width="10" height="10" fill="#0A0C0E"></rect>
+                <rect width="3" height="10" fill="#12171D"></rect>
+              </pattern>
+            </defs>
+            <rect width="800" height="360" fill="url(#bpstripe)"></rect>
+            <text x="400" y="184" text-anchor="middle" fill="#7C838D" font-family="IBM Plex Mono, monospace" font-size="15" letter-spacing="1.4">DIAGRAM OR CHART — DROP IMAGE HERE</text>
+          </svg>
+          <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#7C838D">FIG.01 — CAPTION. SAY WHAT THE READER SHOULD NOTICE, NOT WHAT THE AXES ARE.</figcaption>
+        </figure>
+
+        <h2 id="s2" style="font-size:clamp(23px,2.6vw,32px);line-height:1.2;letter-spacing:-0.025em;font-weight:500;color:#E8EAED;margin:clamp(16px,3vh,32px) 0 0">What I tried first</h2>
+        <p style="margin:0;text-wrap:pretty">Describe the naive approach and why it was reasonable. Readers trust a post that admits the first attempt, and they learn more from the failure mode than from the final architecture.</p>
+
+        <blockquote style="margin:clamp(8px,2vh,20px) 0;padding:0 0 0 24px;border-left:2px solid #3B82F6;font-size:clamp(21px,2.4vw,27px);line-height:1.35;letter-spacing:-0.02em;color:#E8EAED">A pull quote for the one sentence you want quoted back at you.</blockquote>
+
+        <h2 id="s3" style="font-size:clamp(23px,2.6vw,32px);line-height:1.2;letter-spacing:-0.025em;font-weight:500;color:#E8EAED;margin:clamp(16px,3vh,32px) 0 0">The implementation</h2>
+        <p style="margin:0;text-wrap:pretty">Keep code to the smallest fragment that carries the idea. Everything else belongs in the repository, linked once.</p>
+
+        <div style="border:1px solid #1C2026;background:#0A0C0E">
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:11px 16px;border-bottom:1px solid #1C2026;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#7C838D">
+            <span>{{ codeFile }}</span>
+            <span>PYTHON</span>
+          </div>
+          <pre style="margin:0;padding:18px 16px;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:13.5px;line-height:1.65;color:#C3C8CE">{{ code }}</pre>
+        </div>
+
+        <ul style="margin:0;padding-left:22px;display:flex;flex-direction:column;gap:12px">
+          <li style="text-wrap:pretty">A short list for the constraints that shaped the design.</li>
+          <li style="text-wrap:pretty">One idea per bullet, written as a full sentence.</li>
+          <li style="text-wrap:pretty">Three or four items at most, then back to prose.</li>
+        </ul>
+
+        <h2 id="s4" style="font-size:clamp(23px,2.6vw,32px);line-height:1.2;letter-spacing:-0.025em;font-weight:500;color:#E8EAED;margin:clamp(16px,3vh,32px) 0 0">What I would do differently</h2>
+        <p style="margin:0;text-wrap:pretty">Close on the honest limitation and what it would take to remove it. Then stop. No summary of the post the reader just read.</p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+          <sc-for list="{{ tags }}" as="tag" hint-placeholder-count="4">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:#7C838D;border:1px solid #22272E;padding:6px 10px">{{ tag }}</span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer style="max-width:1100px;margin:clamp(60px,10vh,120px) auto 0;padding:0 clamp(20px,5vw,48px) clamp(48px,8vh,90px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:#1C2026;border:1px solid #1C2026">
+      <a href="{{ prevHref }}" style="background:#0A0C0E;padding:clamp(22px,3vw,32px);display:flex;flex-direction:column;gap:12px;color:#E8EAED" style-hover="background:#0E1216">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:#7C838D">← PREVIOUS</span>
+        <span style="font-size:19px;line-height:1.3;letter-spacing:-0.015em">{{ prevTitle }}</span>
+      </a>
+      <a href="{{ nextHref }}" style="background:#0A0C0E;padding:clamp(22px,3vw,32px);display:flex;flex-direction:column;gap:12px;color:#E8EAED;text-align:right" style-hover="background:#0E1216">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:#7C838D">NEXT →</span>
+        <span style="font-size:19px;line-height:1.3;letter-spacing:-0.015em">{{ nextTitle }}</span>
+      </a>
+    </div>
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding-top:22px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#7C838D">
+      <span>{{ author }}</span>
+      <a href="Portfolio.dc.html">BACK TO INDEX</a>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;title&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Giving a language model warehouse access without losing the audit trail&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Post&quot;},&quot;standfirst&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;One or two sentences that tell the reader what they will be able to do differently after reading. Written last, placed first.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Post&quot;},&quot;date&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;2026 · 09 · 04&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Post&quot;},&quot;readTime&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;9 MIN&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Post&quot;},&quot;topic&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;MCP / WAREHOUSE&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Post&quot;},&quot;codeFile&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;server/tools.py&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Post&quot;},&quot;repoHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Post&quot;},&quot;author&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Diego Hernandez&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Meta&quot;},&quot;kicker&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;NOTES&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Meta&quot;},&quot;prevTitle&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Why PDF extraction fails, and what to check instead of the output&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Meta&quot;},&quot;nextTitle&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Forecasting receivables when the data is mostly silence&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Meta&quot;}}">
+class Component extends DCLogic {
+  state = { pct: 0 };
+
+  componentDidMount() {
+    this.onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      const r = Math.round(p * 100);
+      if (r !== this.state.pct) this.setState({ pct: r });
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    this.onScroll();
+  }
+
+  componentWillUnmount() { window.removeEventListener("scroll", this.onScroll); }
+
+  renderVals() {
+    return {
+      author: this.props.author || "Diego Hernandez",
+      kicker: this.props.kicker || "NOTES",
+      title: this.props.title || "Giving a language model warehouse access without losing the audit trail",
+      standfirst: this.props.standfirst || "One or two sentences that tell the reader what they will be able to do differently after reading. Written last, placed first.",
+      date: this.props.date || "2026 · 09 · 04",
+      readTime: this.props.readTime || "9 MIN",
+      topic: this.props.topic || "MCP / WAREHOUSE",
+      repoHref: this.props.repoHref || "#",
+      codeFile: this.props.codeFile || "server/tools.py",
+      progress: this.state.pct + "%",
+      code: '@tool(schema=QueryTables)\ndef query_tables(req: QueryTables, ctx: Caller) -> Result:\n    """Read-only access, scoped to the caller\'s grants."""\n    plan = compile_sql(req, grants=ctx.grants)\n    if not plan.allowed:\n        return Result.denied(plan.reason)\n\n    rows = warehouse.execute(plan.sql, limit=req.limit)\n    audit.log(ctx, "query_tables", plan.sql, len(rows))\n    return Result.ok(rows)',
+      toc: [
+        { label: "01 THE PROBLEM", href: "#s1" },
+        { label: "02 FIRST ATTEMPT", href: "#s2" },
+        { label: "03 IMPLEMENTATION", href: "#s3" },
+        { label: "04 LIMITATIONS", href: "#s4" }
+      ],
+      tags: this.props.tags || ["MCP", "Warehouse", "Python", "Audit"],
+      prevTitle: this.props.prevTitle || "Why PDF extraction fails, and what to check instead of the output",
+      prevHref: this.props.prevHref || "#",
+      nextTitle: this.props.nextTitle || "Forecasting receivables when the data is mostly silence",
+      nextHref: this.props.nextHref || "#"
+    };
+  }
+}
+</script>
+</body>
+</html>

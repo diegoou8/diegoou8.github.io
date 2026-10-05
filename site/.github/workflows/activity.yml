@@ -1,0 +1,32 @@
+name: Sync GitHub activity
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build activity.json
+        run: node scripts/build-activity.mjs
+        env:
+          PERSONAL_LOGIN: ${{ secrets.PERSONAL_LOGIN }}
+          WORK_LOGIN: ${{ secrets.WORK_LOGIN }}
+          GH_PERSONAL_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
+          GH_WORK_TOKEN: ${{ secrets.GH_WORK_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit if changed
+        run: |
+          git config user.name "activity-sync"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/activity.json
+          git diff --staged --quiet || (git commit -m "Update activity" && git push)

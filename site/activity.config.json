@@ -1,0 +1,42 @@
+{
+  "maxProjects": 6,
+  "includeUnlistedPublic": false,
+  "projects": [
+    {
+      "alias": "MCP LLM Integrations to DW",
+      "category": "Enterprise AI",
+      "org": "Standards I.T.",
+      "caseId": "p1",
+      "repos": ["sha256:REPLACE_WITH_HASH"],
+      "summary": "Model Context Protocol servers that let language models query the data warehouse under real permissions, with auth, evals and audit trails.",
+      "tags": ["Python", "MCP", "OAuth 2.1", "Azure"]
+    },
+    {
+      "alias": "Custom PDF Reader with LLM",
+      "category": "Document intelligence",
+      "org": "Standards I.T.",
+      "caseId": "p2",
+      "repos": ["sha256:REPLACE_WITH_HASH"],
+      "summary": "A document pipeline that turns scanned and native PDFs into validated, structured records.",
+      "tags": ["Python", "FastAPI", "OCR", "LLM"]
+    },
+    {
+      "alias": "P&L and AR Estimation",
+      "category": "Financial forecasting",
+      "org": "Standards I.T.",
+      "caseId": "p3",
+      "repos": ["sha256:REPLACE_WITH_HASH"],
+      "summary": "Probabilistic receivables collection turned into a P&L and cash forecast with stated confidence bands.",
+      "tags": ["SQL", "Python", "Forecasting"]
+    },
+    {
+      "alias": "Portfolio",
+      "category": "Personal",
+      "visibility": "public",
+      "alwaysShow": true,
+      "repos": ["sha256:REPLACE_WITH_HASH"],
+      "summary": "This site. A static GitHub Pages build with a nightly activity sync.",
+      "tags": ["JavaScript", "GitHub Actions"]
+    }
+  ]
+}
