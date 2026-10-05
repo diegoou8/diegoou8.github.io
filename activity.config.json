@@ -7,36 +7,65 @@
       "category": "Enterprise AI",
       "org": "Standards I.T.",
       "caseId": "p1",
-      "repos": ["sha256:REPLACE_WITH_HASH"],
-      "summary": "Model Context Protocol servers that let language models query the data warehouse under real permissions, with auth, evals and audit trails.",
-      "tags": ["Python", "MCP", "OAuth 2.1", "Azure"]
+      "repos": [
+        "sha256:1acec57119eae6ca",
+        "sha256:ed99b651d453f6be"
+      ],
+      "summary": "An MCP server that lets LLM clients query the data warehouse under each user's own permissions, with OAuth 2.1 sign-in, validated read-only SQL, column-level classification and a full query audit.",
+      "tags": [
+        "Python",
+        "MCP",
+        "OAuth 2.1",
+        "RAG",
+        "SQL"
+      ]
     },
     {
       "alias": "Custom PDF Reader with LLM",
       "category": "Document intelligence",
       "org": "Standards I.T.",
       "caseId": "p2",
-      "repos": ["sha256:REPLACE_WITH_HASH"],
-      "summary": "A document pipeline that turns scanned and native PDFs into validated, structured records.",
-      "tags": ["Python", "FastAPI", "OCR", "LLM"]
+      "repos": [
+        "sha256:37928798d1b433ce",
+        "sha256:7cb2e9b657bbedaf",
+        "sha256:2fc3065aa4fcc301"
+      ],
+      "summary": "A KPI import pipeline that finds the right pages in partner PDF reports, reads their tables with an LLM vision model and holds every value for review before it loads.",
+      "tags": [
+        "Python",
+        "FastAPI",
+        "PyMuPDF",
+        "Vision LLM"
+      ]
     },
     {
       "alias": "P&L and AR Estimation",
       "category": "Financial forecasting",
       "org": "Standards I.T.",
       "caseId": "p3",
-      "repos": ["sha256:REPLACE_WITH_HASH"],
+      "repos": [
+        "sha256:REPLACE_WITH_HASH"
+      ],
       "summary": "Probabilistic receivables collection turned into a P&L and cash forecast with stated confidence bands.",
-      "tags": ["SQL", "Python", "Forecasting"]
+      "tags": [
+        "SQL",
+        "Python",
+        "Forecasting"
+      ]
     },
     {
       "alias": "Portfolio",
       "category": "Personal",
       "visibility": "public",
       "alwaysShow": true,
-      "repos": ["sha256:592b7f215fe3c8f7"],
+      "repos": [
+        "sha256:592b7f215fe3c8f7"
+      ],
       "summary": "This site. A static GitHub Pages build with a nightly activity sync.",
-      "tags": ["JavaScript", "GitHub Actions"]
+      "tags": [
+        "JavaScript",
+        "GitHub Actions"
+      ]
     }
   ]
 }

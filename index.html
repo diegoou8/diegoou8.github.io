@@ -490,19 +490,19 @@ class Component extends DCLogic {
   data() {
     const P = [
       { id: "p1", label: "MCP LLM Integrations to DW",
-        body: "Model Context Protocol servers that let language models query, join and write back to the data warehouse under real permissions. Tool schemas, auth, evals and audit trails.",
-        stack: ["Python", "MCP", "Tool calling", "Warehouse", "SQL", "Evals"] },
+        body: "An MCP server that lets Claude and other LLM clients query the data warehouse under each user's own permissions: OAuth 2.1 sign-in, permission-aware retrieval, AST-validated read-only SQL, column-level data classification and a full query audit.",
+        stack: ["Python", "MCP", "OAuth 2.1", "RAG", "SQL", "FastAPI"] },
       { id: "p2", label: "Custom PDF Reader with LLM",
-        body: "A document pipeline that turns scanned and native PDFs into structured records: layout parsing, OCR fallback, retrieval and a checked extraction step instead of blind generation.",
-        stack: ["OCR", "Layout parsing", "RAG", "FastAPI", "Docker", "Pydantic"] },
+        body: "A KPI import pipeline for monthly partner reports: keyword and header matching find the right pages, an LLM vision model reads the tables, and every value is pinned to its place on the page and held for review before it loads.",
+        stack: ["Python", "FastAPI", "PyMuPDF", "Vision LLM", "SharePoint", "SQL"] },
       { id: "p3", label: "P&L and AR Estimation",
         body: "Probabilistic estimation of receivables collection turned into a P&L and cash forecast, with confidence bands finance actually reads before closing the month.",
         stack: ["Forecasting", "Pandas", "SQL", "Warehouse", "Statistics"] }
     ];
     const S = [
       ["Python", ["p1", "p2", "p3"]], ["SQL", ["p1", "p3"]], ["Warehouse / dbt", ["p1", "p3"]],
-      ["MCP", ["p1"]], ["Tool calling", ["p1"]], ["Evals", ["p1", "p2"]],
-      ["RAG", ["p2"]], ["OCR", ["p2"]], ["Layout parsing", ["p2"]],
+      ["MCP", ["p1"]], ["OAuth 2.1", ["p1"]], ["Tool calling", ["p1"]],
+      ["RAG", ["p1"]], ["Vision LLM", ["p2"]], ["PDF parsing", ["p2"]],
       ["Forecasting", ["p3"]], ["Pandas", ["p1", "p3"]], ["FastAPI", ["p1", "p2"]],
       ["Docker", ["p1", "p2", "p3"]], ["Statistics", ["p3"]], ["React / dashboards", ["p1", "p3"]],
       ["Airflow", ["p1", "p3"]]
@@ -513,25 +513,25 @@ class Component extends DCLogic {
 
   cases() {
     return [
-      { id: "p1", no: "CASE-01", title: "MCP LLM Integrations to DW", lens: "TOOLS · PERMISSIONS · AUDIT",
+      { id: "p1", no: "CASE-01", title: "MCP LLM Integrations to DW", lens: "OAUTH · PERMISSIONS · AUDIT",
         question: "How a model gets warehouse access without losing the audit trail",
-        captions: ["A QUESTION WITH NO SCHEMA BEHIND IT", "TYPED MCP TOOLS REPLACE FREEHAND SQL",
-          "EVERY CALL RUNS UNDER THE CALLER'S PERMISSIONS", "CALLS, ARGUMENTS AND ROW COUNTS LOGGED"],
+        captions: ["OAUTH 2.1 SIGN-IN, ONE REAL USER PER CALL", "PROMPT GUARD, THEN PERMISSION-AWARE RETRIEVAL",
+          "AST-VALIDATED SQL UNDER TABLE AND COLUMN RULES", "USER, CLIENT, SQL AND ROW COUNTS LOGGED"],
         steps: [
-          { no: "STEP 01", title: "The ask", body: "A question arrives in business language. The model has no schema, no permissions and no idea which table is authoritative." },
-          { no: "STEP 02", title: "Tools, not prompts", body: "Each capability becomes a typed MCP tool with an explicit schema. The model composes calls instead of inventing SQL." },
-          { no: "STEP 03", title: "The gate", body: "Every call executes under the caller's own warehouse permissions. Anything out of scope is refused before it touches data." },
-          { no: "STEP 04", title: "Audit", body: "Calls, arguments and row counts are logged. The answer is reproducible, which is what makes it usable in a business." }
+          { no: "STEP 01", title: "Sign in, not API keys", body: "The LLM client connects over OAuth 2.1. Every tool call carries a real user's identity, so there is no shared service account behind the model." },
+          { no: "STEP 02", title: "Context the user can see", body: "A deterministic prompt guard screens the question, then retrieval pulls schema and business context. Tables the user can't access are dropped before the model sees them." },
+          { no: "STEP 03", title: "The gate", body: "Generated SQL is parsed into an AST: one read-only SELECT with a row cap. Table and column permissions apply next, deny wins, and blocked columns are stripped instead of leaked." },
+          { no: "STEP 04", title: "Audit", body: "Each query is logged with the user, the MCP client, the SQL and the row count. The answer is reproducible, which is what makes it usable in a business." }
         ] },
-      { id: "p2", no: "CASE-02", title: "Custom PDF Reader with LLM", lens: "LAYOUT · OCR · VALIDATION",
-        question: "How a stack of inconsistent PDFs becomes structured records",
-        captions: ["MIXED NATIVE AND SCANNED PAGES", "LAYOUT PARSING FINDS BLOCKS AND READING ORDER",
-          "OCR FILLS THE GAPS, FLAGGED AS LOWER CONFIDENCE", "FIELDS EXTRACTED AGAINST A SCHEMA, THEN VALIDATED"],
+      { id: "p2", no: "CASE-02", title: "Custom PDF Reader with LLM", lens: "MATCH · VISION · REVIEW",
+        question: "How a stack of partner reports becomes approved KPI records",
+        captions: ["MONTHLY REPORTS, A DIFFERENT LAYOUT PER PARTNER", "KEYWORD AND HEADER MATCHING PICK THE PAGES",
+          "AN LLM VISION MODEL READS THE TABLES", "VALUES BOXED ON THE PAGE, LOADED ONLY ON APPROVAL"],
         steps: [
-          { no: "STEP 01", title: "The document", body: "Native PDFs and scans in the same batch. Same supplier, same form, a different layout every quarter." },
-          { no: "STEP 02", title: "Structure first", body: "Layout parsing finds blocks, tables and reading order before any model sees the page." },
-          { no: "STEP 03", title: "Fallback", body: "Where there is no text layer, OCR fills it in and the region carries a lower confidence score onward." },
-          { no: "STEP 04", title: "Checked extraction", body: "Fields are extracted against a schema and validated. What fails validation goes to review instead of being quietly guessed." }
+          { no: "STEP 01", title: "The documents", body: "Monthly PDF reports from different partners. Same KPIs, a different layout for each, with the actuals sitting next to budget and variance columns." },
+          { no: "STEP 02", title: "Find the pages", body: "Keyword and header-zone matching against each partner's template picks only the pages that hold the KPIs, so the model never reads the whole file." },
+          { no: "STEP 03", title: "Vision extraction", body: "Matched pages are rendered to images and read in parallel by an LLM vision model, guided by the template's known sections. Rows that don't parse get a second recovery pass." },
+          { no: "STEP 04", title: "Checked, then approved", body: "Each value is located on the page with a bounding box. Nothing loads until a reviewer approves it, and rows that failed go to the review queue instead of being dropped." }
         ] },
       { id: "p3", no: "CASE-03", title: "P&L and AR Estimation", lens: "AGING · PROBABILITY · FORECAST",
         question: "How an open ledger becomes a forecast",
