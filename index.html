@@ -37,7 +37,7 @@
     .dh-story { display: flex !important; flex-direction: column; gap: 0 !important; }
     .dh-story-vis { order: -1; position: sticky; top: 76px; z-index: 2; padding-bottom: 12px; background: #050607; box-shadow: 0 -90px 0 #050607; }
     .dh-story-vis > div { position: relative !important; top: 0 !important; height: 40vh !important; min-height: 240px; }
-    .dh-step { min-height: 55vh !important; }
+    .dh-step { min-height: 42vh !important; padding-top: 8px; }
   }
   @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 </style>
@@ -261,9 +261,9 @@
   </section>
 
   <section id="work" data-screen-label="Building" style="max-width:1320px;margin:0 auto;padding-left:clamp(20px,5vw,64px);padding-right:clamp(20px,5vw,64px);padding-top:clamp(88px,14vh,160px);padding-bottom:0;scroll-margin-top:60px">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(16px,4vw,64px);align-items:end;margin-bottom:clamp(32px,5vh,48px)">
+    <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:clamp(32px,5vh,48px)">
       <h2 style="font-size:clamp(34px,4.8vw,66px);line-height:1;letter-spacing:-0.045em;font-weight:600;margin:0;max-width:20ch;text-wrap:balance;color:#F2F4F7">What I'm building</h2>
-      <p style="font-size:16px;line-height:1.6;color:#98A0AB;margin:0;max-width:52ch;text-wrap:pretty">Most of my work lives in private Standards I.T. repositories. This activity syncs from GitHub every night. Only contribution counts and the project summaries I approve are published. Repository names, code and commit messages stay private.</p>
+      <p style="font-size:16px;line-height:1.6;color:#98A0AB;margin:0;max-width:68ch;text-wrap:pretty">Most of my work lives in private Standards I.T. repositories. This activity syncs from GitHub every night. Only contribution counts and the project summaries I approve are published. Repository names, code and commit messages stay private.</p>
     </div>
     <sc-if value="{{ actLoading }}" hint-placeholder-val="{{ true }}">
       <div style="position:relative;border-radius:22px;border:1px solid rgba(255,255,255,0.07);background:radial-gradient(520px circle at var(--mx,-600px) var(--my,-600px),rgba(59,130,246,0.11),transparent 42%),#0A0C0F;overflow:hidden;padding:32px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6B7380">Loading activity</div>
@@ -284,7 +284,7 @@
             </sc-for>
           </div>
         </div>
-        <div style="position:relative;height:150px;overflow:hidden">
+        <div style="position:relative;height:clamp(96px,12vw,176px);overflow:hidden">
           <canvas data-cv="heat" style="position:absolute;inset:0;width:100%;height:100%;display:block;cursor:crosshair"></canvas>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px 24px">
@@ -358,7 +358,7 @@
     <div class="dh-story" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(24px,4vw,64px);align-items:start">
       <div data-cv="steps" style="display:flex;flex-direction:column;min-width:0">
         <sc-for list="{{ activeCase.steps }}" as="s" hint-placeholder-count="4">
-          <div class="dh-step" style="min-height:70vh;display:flex;flex-direction:column;justify-content:center;gap:16px">
+          <div class="dh-step" style="min-height:46vh;display:flex;flex-direction:column;justify-content:flex-start;gap:16px">
             <div style="display:flex;align-items:center;gap:14px">
               <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#3B82F6">{{ s.no }}</span>
               <span style="height:1px;flex:1;background:rgba(255,255,255,0.07)"></span>
@@ -526,7 +526,7 @@ class Component extends DCLogic {
         stack: ["Python", "MCP", "OAuth 2.1", "RAG", "SQL", "FastAPI"] },
       { id: "p2", label: "Custom PDF Reader with LLM",
         body: "A KPI import pipeline for monthly partner reports: keyword and header matching find the right pages, an LLM vision model reads the tables, and every value is pinned to its place on the page and held for review before it loads.",
-        stack: ["Python", "FastAPI", "PyMuPDF", "Vision LLM", "SharePoint", "SQL"] },
+        stack: ["Python", "FastAPI", "Angular", "PyMuPDF", "Vision LLM", "SQL"] },
       { id: "p3", label: "P&L and Working Interest Estimation",
         body: "Probabilistic estimation of receivables collection turned into a P&L and cash forecast, with confidence bands finance actually reads before closing the month.",
         stack: ["Forecasting", "Pandas", "SQL", "Warehouse", "Statistics"] }
@@ -557,13 +557,13 @@ class Component extends DCLogic {
         ] },
       { id: "p2", no: "CASE-02", title: "Custom PDF Reader with LLM", lens: "MATCH · VISION · REVIEW",
         question: "How a stack of partner reports becomes approved KPI records",
-        captions: ["MONTHLY REPORTS, A DIFFERENT LAYOUT PER PARTNER", "KEYWORD AND HEADER MATCHING PICK THE PAGES",
-          "AN LLM VISION MODEL READS THE TABLES", "VALUES BOXED ON THE PAGE, LOADED ONLY ON APPROVAL"],
+        captions: ["BATCH UPLOAD, A TEMPLATE PER PARTNER", "KEYWORD AND HEADER MATCHING PICK THE PAGES",
+          "AN LLM VISION MODEL READS THE TABLES", "REVIEW SCREEN: VALUES BOXED ON THE SOURCE PAGE"],
         steps: [
-          { no: "STEP 01", title: "The documents", body: "Monthly PDF reports from different partners. Same KPIs, a different layout for each, with the actuals sitting next to budget and variance columns." },
+          { no: "STEP 01", title: "The documents", body: "Monthly PDF reports from different partners, uploaded in batches through an Angular screen that tags each file with its partner template and tracks it from upload to staged." },
           { no: "STEP 02", title: "Find the pages", body: "Keyword and header-zone matching against each partner's template picks only the pages that hold the KPIs, so the model never reads the whole file." },
           { no: "STEP 03", title: "Vision extraction", body: "Matched pages are rendered to images and read in parallel by an LLM vision model, guided by the template's known sections. Rows that don't parse get a second recovery pass." },
-          { no: "STEP 04", title: "Checked, then approved", body: "Each value is located on the page with a bounding box. Nothing loads until a reviewer approves it, and rows that failed go to the review queue instead of being dropped." }
+          { no: "STEP 04", title: "Checked, then approved", body: "The review screen shows each value with its label and number boxed on the source page. Nothing loads until a reviewer approves it, and rows that failed wait in the queue instead of being dropped." }
         ] },
       { id: "p3", no: "CASE-03", title: "P&L and Working Interest Estimation", lens: "EXTRACT · MODEL · ALLOCATE · REPORT",
         question: "How a daily extract becomes a company-wide P&L by owner",

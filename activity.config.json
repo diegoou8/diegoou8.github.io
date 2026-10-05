@@ -18,7 +18,8 @@
         "OAuth 2.1",
         "RAG",
         "SQL"
-      ]
+      ],
+      "alwaysShow": true
     },
     {
       "alias": "Custom PDF Reader with LLM",
@@ -29,13 +30,15 @@
         "sha256:37928798d1b433ce",
         "sha256:7cb2e9b657bbedaf"
       ],
-      "summary": "A KPI import pipeline that finds the right pages in partner PDF reports, reads their tables with an LLM vision model and holds every value for review before it loads.",
+      "summary": "A KPI import pipeline with an Angular front end: batch-upload partner PDF reports, let an LLM vision model read their tables, then review every value highlighted on its source page before it loads.",
       "tags": [
         "Python",
         "FastAPI",
+        "Angular",
         "PyMuPDF",
         "Vision LLM"
-      ]
+      ],
+      "alwaysShow": true
     },
     {
       "alias": "P&L and Working Interest Estimation",
@@ -68,7 +71,8 @@
         "FastAPI",
         "Angular",
         "SQL Server"
-      ]
+      ],
+      "alwaysShow": true
     },
     {
       "alias": "Investor Statements Generator",
@@ -85,7 +89,8 @@
         "FastAPI",
         "WeasyPrint",
         "SQL Server"
-      ]
+      ],
+      "alwaysShow": true
     },
     {
       "alias": "Daily Report Automation with Web Scraping",
@@ -102,7 +107,8 @@
         "Playwright",
         "Microsoft Graph",
         "SQL Server"
-      ]
+      ],
+      "alwaysShow": true
     },
     {
       "alias": "Portfolio",
