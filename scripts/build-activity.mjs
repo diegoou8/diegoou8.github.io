@@ -84,8 +84,9 @@ async function rest(token, path) {
 }
 for (const a of accounts) {
   if (a.token === env.GITHUB_TOKEN) continue; // the Actions token can't list a user's repositories
-  let list = [];
+  let list = [], me;
   try {
+    me = await rest(a.token, "/user");
     for (let page = 1; page <= 20; page++) {
       const batch = await rest(a.token, `/user/repos?per_page=100&page=${page}&affiliation=owner,collaborator,organization_member`);
       list = list.concat(batch);
@@ -95,23 +96,28 @@ for (const a of accounts) {
     console.warn("Could not list repositories for one account. Using contribution data only for it.");
     continue;
   }
+  // Counts and yes/no only: Actions logs on a public repo are public.
+  const stat = { found: 0, commits: 0, failed: 0 };
   for (const repo of list) {
     const id = hash(repo.full_name);
+    if (wanted.has(id)) stat.found++;
     if (!wanted.has(id) && !hashesMode) continue;
     const weekly = Array(WEEKS).fill(0);
     let last = null;
     if (wanted.has(id)) {
       try {
         for (let page = 1; page <= 20; page++) {
-          const cs = await rest(a.token, `/repos/${repo.full_name}/commits?author=${encodeURIComponent(a.login)}&since=${recentFrom.toISOString()}&per_page=100&page=${page}`);
+          const cs = await rest(a.token, `/repos/${repo.full_name}/commits?author=${encodeURIComponent(me.login)}&since=${recentFrom.toISOString()}&per_page=100&page=${page}`);
           for (const c of cs) {
             const at = c.commit.author.date;
             weekly[weekIndex(at)] += 1;
+            stat.commits++;
             if (!last || at > last) last = at;
           }
           if (cs.length < 100) break;
         }
       } catch {
+        stat.failed++;
         continue; // empty repository or no access to its commits
       }
     }
@@ -120,6 +126,13 @@ for (const a of accounts) {
     const prev = repos.findIndex(r => r.id === id);
     if (prev < 0) repos.push(entry);
     else if (total(weekly) >= total(repos[prev].weekly)) repos[prev] = entry;
+  }
+  const label = a.key === "w" ? "Work" : "Personal";
+  console.log(`${label} account: token user matches login: ${me.login.toLowerCase() === a.login.toLowerCase() ? "yes" : "NO"}; ` +
+    `${list.length} repositories visible; ${stat.found} of ${wanted.size} configured repositories found; ` +
+    `${stat.commits} commits counted; ${stat.failed} repositories unreadable.`);
+  if (a.key === "w" && !stat.found) {
+    console.warn("None of the configured repositories are visible to the work token. If the organization uses SSO, authorize the token for it (Settings > Developer settings > Tokens > Configure SSO).");
   }
 }
 
