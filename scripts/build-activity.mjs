@@ -71,7 +71,59 @@ for (const a of accounts) {
   }
 }
 
-if (process.argv.includes("--hashes")) {
+// GitHub's contribution data can skip commits to organization repositories, so for repos
+// listed in the config, count the account's commits on the default branch directly.
+const hashesMode = process.argv.includes("--hashes");
+const wanted = new Set(cfg.projects.flatMap(p => (p.repos || []).map(s => s.replace(/^sha256:/, ""))));
+async function rest(token, path) {
+  const r = await fetch("https://api.github.com" + path, {
+    headers: { Authorization: `bearer ${token}`, Accept: "application/vnd.github+json", "User-Agent": "portfolio-activity" }
+  });
+  if (!r.ok) throw new Error("GitHub API request failed with status " + r.status + ".");
+  return r.json();
+}
+for (const a of accounts) {
+  if (a.token === env.GITHUB_TOKEN) continue; // the Actions token can't list a user's repositories
+  let list = [];
+  try {
+    for (let page = 1; page <= 20; page++) {
+      const batch = await rest(a.token, `/user/repos?per_page=100&page=${page}&affiliation=owner,collaborator,organization_member`);
+      list = list.concat(batch);
+      if (batch.length < 100) break;
+    }
+  } catch {
+    console.warn("Could not list repositories for one account. Using contribution data only for it.");
+    continue;
+  }
+  for (const repo of list) {
+    const id = hash(repo.full_name);
+    if (!wanted.has(id) && !hashesMode) continue;
+    const weekly = Array(WEEKS).fill(0);
+    let last = null;
+    if (wanted.has(id)) {
+      try {
+        for (let page = 1; page <= 20; page++) {
+          const cs = await rest(a.token, `/repos/${repo.full_name}/commits?author=${encodeURIComponent(a.login)}&since=${recentFrom.toISOString()}&per_page=100&page=${page}`);
+          for (const c of cs) {
+            const at = c.commit.author.date;
+            weekly[weekIndex(at)] += 1;
+            if (!last || at > last) last = at;
+          }
+          if (cs.length < 100) break;
+        }
+      } catch {
+        continue; // empty repository or no access to its commits
+      }
+    }
+    const entry = { account: a.key, name: repo.full_name, id, isPrivate: repo.private, url: repo.html_url, weekly, last };
+    const total = w => w.reduce((x, y) => x + y, 0);
+    const prev = repos.findIndex(r => r.id === id);
+    if (prev < 0) repos.push(entry);
+    else if (total(weekly) >= total(repos[prev].weekly)) repos[prev] = entry;
+  }
+}
+
+if (hashesMode) {
   if (env.CI) throw new Error("--hashes prints repository names. Run it on your own machine, not in CI.");
   console.table(repos.map(r => ({ repo: r.name, private: r.isPrivate, hash: "sha256:" + r.id })));
   process.exit(0);
